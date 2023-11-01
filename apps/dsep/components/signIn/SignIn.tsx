@@ -4,6 +4,7 @@ import { Box, Flex, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import HomeImg from '../../public/images/HomePageLogo.svg'
 import SkillUp from '../../public/images/SkillUpLogo.svg'
+import Suppli from '../../public/images/Suppliflow_logo.svg'
 import Styles from './SignIn.module.css'
 import style from '../detailsCard/ShippingForm.module.css'
 import { useLanguage } from '../../hooks/useLanguage'
@@ -76,8 +77,8 @@ const SignIn = () => {
   return (
     <Box className={Styles.main_container}>
       <Flex className={Styles.logo_container}>
-        <Image src={HomeImg} alt="Home Icon" width={77} height={76} />
-        <Image className={Styles.logo_skillup} src={SkillUp} alt="Skill Up Icon" width={188} height={56} />
+        {/* <Image src={HomeImg} alt="Home Icon" width={77} height={76} /> */}
+        <Image className={Styles.logo_skillup} src={Suppli} alt="Skill Up Icon" width={188} height={56} />
       </Flex>
       <Box className={Styles.signin_container} pt="40px">
         <div className={style.container}>
