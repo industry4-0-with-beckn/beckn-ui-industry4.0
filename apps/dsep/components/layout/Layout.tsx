@@ -23,7 +23,7 @@ const Layout: React.FC<{ children?: React.ReactNode }> = ({ children }) => {
     <Provider store={store}>
       <ThemeProvider enableSystem={true}>
         <Head>
-          <title>Skill Seeker</title>
+          <title>Suppliflow</title>
         </Head>
         <div className={cs('flex flex-col ', { ['h-[100vh]']: isHomepage }, { ['min-h-[100vh]']: !isHomepage })}>
           <NextNProgress height={7} />
