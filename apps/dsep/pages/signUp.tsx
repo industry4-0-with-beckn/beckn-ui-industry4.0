@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useLanguage } from '../hooks/useLanguage'
 import HomeImg from '../public/images/HomePageLogo.svg'
 import SkillUp from '../public/images/SkillUpLogo.svg'
+import Suppli from '../public/images/Suppliflow_logo.svg'
 import { FormErrors, signInValidateForm, signUpValidateForm } from '../utilities/detailsForm-utils'
 import style from '../components/detailsCard/ShippingForm.module.css'
 import Styles from '../components/signIn/SignIn.module.css'
@@ -76,8 +77,8 @@ const SignUp = () => {
     <>
       <Box className={Styles.main_container} mt="40px">
         <Flex className={Styles.logo_container}>
-          <Image src={HomeImg} alt="Home Icon" width={77} height={76} />
-          <Image className={Styles.logo_skillup} src={SkillUp} alt="OpenCommerce" pt="15px" />
+          {/* <Image src={HomeImg} alt="Home Icon" width={77} height={76} /> */}
+          <Image className={Styles.logo_skillup} src={Suppli} alt="OpenCommerce" pt="15px" />
         </Flex>
         <Box className={Styles.signin_container} pt="40px">
           <div className={style.container}>

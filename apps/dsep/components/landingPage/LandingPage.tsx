@@ -6,8 +6,10 @@ import { useLanguage } from '../../hooks/useLanguage'
 import { Box, Flex, Text, Input, Image } from '@chakra-ui/react'
 import MapSearch from '../Map/MapSearch'
 import useRequest from '../../hooks/useRequest'
+import Style from '../landingPage/landingpage.css'
 
 import beckenFooter from '../../public/images/beckenFooterLogo.svg'
+import EmptyBox from '../../public/images/EmptyInbox.svg'
 import couresImageWhite from '../../public/images/landing-page-icons/CoursesWhite.svg'
 import coursesImageBlack from '../../public/images/landing-page-icons/CoursesBlack.svg'
 import jobsImageBlack from '../../public/images/landing-page-icons/jobsBlack.svg'
@@ -132,6 +134,9 @@ const LandingPage: React.FC = () => {
           />
         </Flex>
       </Flex>
+      {/* emptyboximage */}
+      {/* <Image className={Style.emptybox} src={EmptyBox} alt="emptybox" width={276} height={116} /> */}
+
       <Flex justifyContent={'center'} alignItems="center" width=" calc(100% - 40px)" position={'fixed'} bottom="15px">
         <Text pr={'8px'} fontSize="10px">
           {t.footerText}
