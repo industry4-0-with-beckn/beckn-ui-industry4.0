@@ -1,6 +1,7 @@
 const en: { [key: string]: string } = {
   mainPage: 'ZiShop Main Page',
   search: 'Search',
+  location: 'Select your location',
   login: 'Login',
   logout: 'Logout',
   favorites: 'Favorites',
@@ -358,10 +359,10 @@ const en: { [key: string]: string } = {
   addCommentsHere: 'Add your comments here',
   writeExperience: 'Write about your experience..',
   completed: 'Completed',
-  homeHeading: 'Skill Up',
-  headingSpan: 'for All',
-  homeText:
-    'Discover diverse online resources, scholarships, and job opportunities in one convenient platform, enhancing your expertise across multiple fields.',
+  // homeHeading: 'Skill Up',
+  // headingSpan: 'for All',
+  // homeText:
+  //   'Discover diverse online resources, scholarships, and job opportunities in one convenient platform, enhancing your expertise across multiple fields.',
   footerText: 'Powered by',
   cartEmpty: 'The Cart is Empty',
   cartEmptySpan: 'Look like you haven’t made your choice yet',

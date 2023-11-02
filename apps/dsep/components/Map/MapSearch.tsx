@@ -76,8 +76,8 @@ const SearchBar: React.FC<SearchBarProp> = ({
         <GoSearch style={{ color: 'rgb(156 163 175)' }} />
         <input
           className="px-4 py-2 md:py-3 bg-transparent outline-none w-full text-[15px]"
-          type="search"
-          placeholder={`${t.search}`}
+          type="location"
+          placeholder={`${t.location}`}
           onChange={e => setValue(e.target.value)}
         />
         {loading && <Spinner color="#A71B4A" size="sm" />}

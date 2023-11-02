@@ -4,6 +4,8 @@ import Router from 'next/router'
 import ImageCard from './ImageCard'
 import { useLanguage } from '../../hooks/useLanguage'
 import { Box, Flex, Text, Input, Image } from '@chakra-ui/react'
+import MapSearch from '../Map/MapSearch'
+import useRequest from '../../hooks/useRequest'
 
 import beckenFooter from '../../public/images/beckenFooterLogo.svg'
 import couresImageWhite from '../../public/images/landing-page-icons/CoursesWhite.svg'
@@ -29,6 +31,30 @@ const LandingPage: React.FC = () => {
     setActiveCard(type)
   }
 
+  //location search bar
+  const [query, setQuery] = useState<string>('')
+  const [coords, setCoords] = useState<Coords>({
+    lat: 48.800345,
+    long: 2.346078
+  })
+  const { data: searchedLocationData, loading, error, fetchData } = useRequest()
+  const { data: locationData, loading: loadingLocation, error: locationError, fetchData: fetchLocation } = useRequest()
+  const handleLocationClick = (lat: number, long: number) => {
+    setCoords({ lat, long })
+  }
+  const fetchLocationByQuery = (query: string) => {
+    let url = `${process.env.NEXT_PUBLIC_NOMINATIM_URL}/search?format=jsonv2&q=${query}`
+
+    fetchData(url, 'GET')
+  }
+
+  const fetchLocationNameByCoords = (lat: number, long: number) => {
+    let url = `${process.env.NEXT_PUBLIC_NOMINATIM_URL}/reverse?format=jsonv2&lat=${lat}&lon=${long}`
+
+    fetchLocation(url, 'GET')
+  }
+  const [showSuggestions, setShowSuggestions] = useState(false)
+
   return (
     <Box p={'20px'}>
       <Text fontSize={'40px'} fontWeight="800" color={'rgba(var(--color-primary))'} pt="30px" lineHeight={'40px'}>
@@ -38,7 +64,16 @@ const LandingPage: React.FC = () => {
         {t.headingSpan}
       </Text>
       <Text fontSize={'15px'}>{t.homeText}</Text>
-      <Flex justifyContent={'space-between'} alignItems="center" pt={'25px'}>
+      {/* locationbar */}
+      <MapSearch
+        setQuery={setQuery}
+        locations={searchedLocationData as any}
+        query={query}
+        handleLocationClick={handleLocationClick}
+        fetchResults={fetchLocationByQuery}
+        setShowSuggestions={setShowSuggestions}
+      />
+      {/* <Flex justifyContent={'space-between'} alignItems="center" pt={'25px'}>
         {cardTypes.map(type => (
           <ImageCard
             key={type}
@@ -60,7 +95,7 @@ const LandingPage: React.FC = () => {
             isActive={activeCard === type}
           />
         ))}
-      </Flex>
+      </Flex> */}
 
       <Flex pt={'25px'}>
         <Input
@@ -69,7 +104,7 @@ const LandingPage: React.FC = () => {
           p={'26px 15px'}
           type="text"
           name="search_input"
-          placeholder="Search for courses"
+          placeholder="Search for a service"
           onChange={(e: React.BaseSyntheticEvent) => setSearchTerm(e.target.value)}
           onKeyDown={event => event.key === 'Enter' && navigateToSearchResults()}
           _focusVisible={{
