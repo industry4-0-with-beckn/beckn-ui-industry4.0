@@ -515,78 +515,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@beckn-ui/dhp@workspace:apps/dhp":
+"@beckn-ui/dsep2@workspace:apps/dsep2":
   version: 0.0.0-use.local
-  resolution: "@beckn-ui/dhp@workspace:apps/dhp"
-  dependencies:
-    "@beckn-ui/prettier-config": "workspace:^"
-    "@chakra-ui/icons": ^2.0.19
-    "@chakra-ui/react": ^2.7.0
-    "@emotion/react": ^11.11.1
-    "@emotion/styled": ^11.11.0
-    "@fullhuman/postcss-purgecss": ^4.1.3
-    "@headlessui/react": 1.7.15
-    "@reduxjs/toolkit": ^1.8.2
-    "@sanity/client": ^3.3.0
-    "@sanity/image-url": ^1.0.1
-    "@stripe/stripe-js": ^1.29.0
-    "@types/bcryptjs": ^2.4.2
-    "@types/js-cookie": ^3.0.2
-    "@types/jsonwebtoken": ^8.5.8
-    "@types/leaflet": ^1.9.3
-    "@types/node": 17.0.31
-    "@types/react": 18.0.8
-    "@types/react-dom": 18.0.3
-    "@types/react-places-autocomplete": ^7.2.9
-    "@types/react-redux": ^7.1.24
-    "@types/react-slick": ^0.23.8
-    "@types/react-star-rating-component": ^1.4.1
-    "@types/react-transition-group": ^4.4.4
-    "@zeit/next-css": ^1.0.2-canary.0
-    autoprefixer: ^10.4.7
-    axios: ^0.27.2
-    bcryptjs: ^2.4.3
-    classnames: ^2.3.2
-    eslint: 8.14.0
-    eslint-config-next: 12.1.6
-    framer-motion: ^10.12.16
-    js-cookie: ^3.0.5
-    jsonwebtoken: ^8.5.1
-    leaflet: ^1.9.4
-    next: ^13.4.19
-    next-connect: ^0.12.2
-    next-export-i18n: ^2.1.0
-    next-sanity-image: ^3.2.1
-    next-sitemap: ^3.1.17
-    next-themes: ^0.2.0
-    nextjs-progressbar: ^0.0.14
-    postcss: ^8.4.14
-    postcss-import: ^14.1.0
-    prettier: ^3.0.3
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-hot-toast: ^2.2.0
-    react-icons: ^4.3.1
-    react-leaflet: ^4.2.1
-    react-leaflet-custom-control: ^1.3.5
-    react-places-autocomplete: ^7.3.0
-    react-query: ^3.38.1
-    react-redux: ^8.0.2
-    react-slick: ^0.29.0
-    react-star-rating-component: ^1.4.1
-    react-toastify: ^9.0.7
-    react-transition-group: ^4.4.5
-    slick-carousel: ^1.8.1
-    stripe: ^9.1.0
-    tailwindcss: ^3.1.4
-    typescript: 4.6.4
-    url-loader: ^4.1.1
-  languageName: unknown
-  linkType: soft
-
-"@beckn-ui/dsep@workspace:apps/dsep":
-  version: 0.0.0-use.local
-  resolution: "@beckn-ui/dsep@workspace:apps/dsep"
+  resolution: "@beckn-ui/dsep2@workspace:apps/dsep2"
   dependencies:
     "@beckn-ui/prettier-config": "workspace:^"
     "@chakra-ui/icons": ^2.0.19
@@ -651,9 +582,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@beckn-ui/dsnp@workspace:apps/dsnp":
+"@beckn-ui/ind4@workspace:apps/ind4":
   version: 0.0.0-use.local
-  resolution: "@beckn-ui/dsnp@workspace:apps/dsnp"
+  resolution: "@beckn-ui/ind4@workspace:apps/ind4"
   dependencies:
     "@beckn-ui/prettier-config": "workspace:^"
     "@chakra-ui/icons": ^2.0.19
@@ -661,7 +592,7 @@ __metadata:
     "@emotion/react": ^11.11.1
     "@emotion/styled": ^11.11.0
     "@fullhuman/postcss-purgecss": ^4.1.3
-    "@headlessui/react": ^1.7.15
+    "@headlessui/react": 1.7.15
     "@reduxjs/toolkit": ^1.8.2
     "@sanity/client": ^3.3.0
     "@sanity/image-url": ^1.0.1
@@ -673,7 +604,6 @@ __metadata:
     "@types/node": 17.0.31
     "@types/react": 18.0.8
     "@types/react-dom": 18.0.3
-    "@types/react-places-autocomplete": ^7.2.9
     "@types/react-redux": ^7.1.24
     "@types/react-slick": ^0.23.8
     "@types/react-star-rating-component": ^1.4.1
@@ -686,31 +616,31 @@ __metadata:
     eslint: 8.14.0
     eslint-config-next: 12.1.6
     framer-motion: ^10.12.16
-    js-cookie: ^3.0.1
+    js-cookie: ^3.0.5
     jsonwebtoken: ^8.5.1
     leaflet: ^1.9.4
     next: ^13.4.19
     next-connect: ^0.12.2
+    next-export-i18n: ^2.1.0
     next-sanity-image: ^3.2.1
     next-sitemap: ^3.1.17
     next-themes: ^0.2.0
     nextjs-progressbar: ^0.0.14
     postcss: ^8.4.14
     postcss-import: ^14.1.0
-    react: 18.1.0
-    react-dom: 18.1.0
+    prettier: ^3.0.3
+    react: ^18.2.0
+    react-dom: ^18.2.0
     react-hot-toast: ^2.2.0
     react-icons: ^4.3.1
     react-leaflet: ^4.2.1
     react-leaflet-custom-control: ^1.3.5
-    react-places-autocomplete: ^7.3.0
     react-query: ^3.38.1
     react-redux: ^8.0.2
     react-slick: ^0.29.0
     react-star-rating-component: ^1.4.1
     react-toastify: ^9.0.7
     react-transition-group: ^4.4.5
-    react-type-animation: ^3.1.0
     slick-carousel: ^1.8.1
     stripe: ^9.1.0
     tailwindcss: ^3.1.4
@@ -765,72 +695,6 @@ __metadata:
     nextjs-progressbar: ^0.0.14
     postcss: ^8.4.14
     postcss-import: ^14.1.0
-    react: ^18.2.0
-    react-dom: ^18.2.0
-    react-hot-toast: ^2.2.0
-    react-icons: ^4.3.1
-    react-leaflet: ^4.2.1
-    react-leaflet-custom-control: ^1.3.5
-    react-query: ^3.38.1
-    react-redux: ^8.0.2
-    react-slick: ^0.29.0
-    react-star-rating-component: ^1.4.1
-    react-toastify: ^9.0.7
-    react-transition-group: ^4.4.5
-    slick-carousel: ^1.8.1
-    stripe: ^9.1.0
-    tailwindcss: ^3.1.4
-    typescript: 4.6.4
-    url-loader: ^4.1.1
-  languageName: unknown
-  linkType: soft
-
-"@beckn-ui/osm@workspace:apps/osm":
-  version: 0.0.0-use.local
-  resolution: "@beckn-ui/osm@workspace:apps/osm"
-  dependencies:
-    "@beckn-ui/prettier-config": "workspace:^"
-    "@chakra-ui/icons": ^2.0.19
-    "@chakra-ui/react": ^2.7.0
-    "@emotion/react": ^11.11.1
-    "@emotion/styled": ^11.11.0
-    "@fullhuman/postcss-purgecss": ^4.1.3
-    "@headlessui/react": ^1.7.15
-    "@reduxjs/toolkit": ^1.8.2
-    "@sanity/client": ^3.3.0
-    "@sanity/image-url": ^1.0.1
-    "@stripe/stripe-js": ^1.29.0
-    "@types/bcryptjs": ^2.4.2
-    "@types/js-cookie": ^3.0.2
-    "@types/jsonwebtoken": ^8.5.8
-    "@types/leaflet": ^1.9.3
-    "@types/node": 17.0.31
-    "@types/react": 18.0.8
-    "@types/react-dom": 18.0.3
-    "@types/react-redux": ^7.1.24
-    "@types/react-slick": ^0.23.8
-    "@types/react-star-rating-component": ^1.4.1
-    "@types/react-transition-group": ^4.4.4
-    "@zeit/next-css": ^1.0.2-canary.0
-    autoprefixer: ^10.4.7
-    axios: ^0.27.2
-    bcryptjs: ^2.4.3
-    classnames: ^2.3.2
-    eslint: 8.14.0
-    eslint-config-next: latest
-    framer-motion: ^10.12.16
-    js-cookie: ^3.0.1
-    jsonwebtoken: ^8.5.1
-    leaflet: ^1.9.4
-    next: ^13.4.19
-    next-connect: ^0.12.2
-    next-sanity-image: ^3.2.1
-    next-sitemap: ^3.1.17
-    next-themes: ^0.2.0
-    nextjs-progressbar: ^0.0.14
-    postcss: ^8.4.14
-    postcss-import: ^14.1.0
-    prettier: ^3.0.3
     react: ^18.2.0
     react-dom: ^18.2.0
     react-hot-toast: ^2.2.0
@@ -3369,13 +3233,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/google.maps@npm:*":
-  version: 3.54.1
-  resolution: "@types/google.maps@npm:3.54.1"
-  checksum: 0b0c1de53af7e6264d9b141fc96f78aba12f438f959c81926519f8f5b46c9b8f3ddde7def341d9dc3fc37f1e8e21c64a6bbc3f8fd29d6bed5fae1ede0ffc764d
-  languageName: node
-  linkType: hard
-
 "@types/graceful-fs@npm:^4.1.3":
   version: 4.1.6
   resolution: "@types/graceful-fs@npm:4.1.6"
@@ -3567,16 +3424,6 @@ __metadata:
   dependencies:
     "@types/react": "*"
   checksum: e02ea908289a7ad26053308248d2b87f6aeafd73d0e2de2a3d435947bcea0422599016ffd1c3e38ff36c42f5e1c87c7417f05b0a157e48649e4a02f21727d54f
-  languageName: node
-  linkType: hard
-
-"@types/react-places-autocomplete@npm:^7.2.9":
-  version: 7.2.9
-  resolution: "@types/react-places-autocomplete@npm:7.2.9"
-  dependencies:
-    "@types/google.maps": "*"
-    "@types/react": "*"
-  checksum: df5f24f3c86576a1bac5e4d5fcb3f0d8d90bd1679b80357b4cbb26ed97612cd83bb2b2b03b2aec94f4c7d502ca9c75f7e9158b7cd91328d1600110010c26026f
   languageName: node
   linkType: hard
 
@@ -10849,7 +10696,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.8, prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.6.1, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -10940,18 +10787,6 @@ __metadata:
   peerDependencies:
     react: ^15.3.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
   checksum: 7db6110027a51458b1a46109d2b63dd822825f483c71afef7c0c0a671f3b1aa155049dbd8651c9d536ffac83601f8823b7c3f8916b4f4ee5c3cb7647a85cce4e
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:18.1.0":
-  version: 18.1.0
-  resolution: "react-dom@npm:18.1.0"
-  dependencies:
-    loose-envify: ^1.1.0
-    scheduler: ^0.22.0
-  peerDependencies:
-    react: ^18.1.0
-  checksum: bb0d48eeb0b297c79c2a03978baa29f5b3ff7ba3d070b21e34c9af1a6e7fdf0ca8b8d73e41f9214d91ad40eeb6d1f3559f884cbbc338713374a51320637c23df
   languageName: node
   linkType: hard
 
@@ -11057,18 +10892,6 @@ __metadata:
     react: ^18.0.0
     react-dom: ^18.0.0
   checksum: 79222c2ba0c62facaa3dfee18f7a692f917a4fb744ba8d22269a77f9779fc9634962230eb51265ff2563a1a5e3287d2ec16640ee7f5de459458027e05cd756ba
-  languageName: node
-  linkType: hard
-
-"react-places-autocomplete@npm:^7.3.0":
-  version: 7.3.0
-  resolution: "react-places-autocomplete@npm:7.3.0"
-  dependencies:
-    lodash.debounce: ^4.0.8
-    prop-types: ^15.5.8
-  peerDependencies:
-    react: ">=0.14.7"
-  checksum: b507fedc60129a7def162c0a82ef1eb17f856dc63e4547edc5123f41b32f0e47542682d4e2a86a3c63eba8ba91c68d3a00d71ded02363f1ded194dd78f04d29f
   languageName: node
   linkType: hard
 
@@ -11226,26 +11049,6 @@ __metadata:
     react: ">=16.6.0"
     react-dom: ">=16.6.0"
   checksum: 75602840106aa9c6545149d6d7ae1502fb7b7abadcce70a6954c4b64a438ff1cd16fc77a0a1e5197cdd72da398f39eb929ea06f9005c45b132ed34e056ebdeb1
-  languageName: node
-  linkType: hard
-
-"react-type-animation@npm:^3.1.0":
-  version: 3.1.0
-  resolution: "react-type-animation@npm:3.1.0"
-  peerDependencies:
-    prop-types: ^15.5.4
-    react: ">= 15.0.0"
-    react-dom: ">= 15.0.0"
-  checksum: c3a9b09c7db93528f57e7cde6dca9ad2c13250eefa3e9514bb8b30c193115f03591d4f66a2d25f37ffc77de1b54183406ed33404da83ecdbce9ee59a27959f0a
-  languageName: node
-  linkType: hard
-
-"react@npm:18.1.0":
-  version: 18.1.0
-  resolution: "react@npm:18.1.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: 5bb296b561b43ef2220395da4faac86c14a087c8c80e1a7598a5740f01ee605c11eaf249985c1e2000971c4cd32ccb46d40f00479bbd9fb6b1c7cf857393b7d4
   languageName: node
   linkType: hard
 
@@ -11684,15 +11487,6 @@ __metadata:
   dependencies:
     xmlchars: ^2.2.0
   checksum: d3fa3e2aaf6c65ed52ee993aff1891fc47d5e47d515164b5449cbf5da2cbdc396137e55590472e64c5c436c14ae64a8a03c29b9e7389fc6f14035cf4e982ef3b
-  languageName: node
-  linkType: hard
-
-"scheduler@npm:^0.22.0":
-  version: 0.22.0
-  resolution: "scheduler@npm:0.22.0"
-  dependencies:
-    loose-envify: ^1.1.0
-  checksum: a8ef5cab769c020cd6382ad9ecc3f72dbde56a50a36639b3a42ad9c11f7724f03700bcad373044059b8067d4a6365154dc7c0ca8027ef20ff4900cf58a0fc2c5
   languageName: node
   linkType: hard
 
