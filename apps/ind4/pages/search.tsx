@@ -64,6 +64,19 @@ const Search = () => {
     }
   }
 
+  // const searchPayload = {
+  //   context: {
+  //     domain: 'retail'
+  //   },
+  //   message: {
+  //     criteria: {
+  //       dropLocation: '12.9715987,77.5945627',
+  //       categoryName: 'Courses',
+  //       searchString: searchKeyword
+  //     }
+  //   }
+  // }
+
   const fetchDataForSearch = () => fetchData(`${apiUrl}/client/v2/search`, 'POST', searchPayload)
 
   useEffect(() => {
