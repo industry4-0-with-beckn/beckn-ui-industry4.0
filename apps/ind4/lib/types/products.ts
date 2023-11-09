@@ -89,3 +89,23 @@ export interface RetailItem {
   }
   bppName?: string
 }
+
+export interface IndustryItem {
+  extended_attributes?: any
+  price: {
+    currency?: string
+    value: string
+  }
+  id: string
+  descriptor: {
+    images: string[]
+    name: string
+    short_desc: string
+    long_desc: string
+  }
+  tags: {
+    assembly?: string
+    automated?: string
+  }
+  bppName?: string
+}

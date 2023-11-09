@@ -1,4 +1,4 @@
-import { Box, Flex, Image, Text } from '@chakra-ui/react'
+import { Box, Flex, Image, Text, Button } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import StarRatingComponent from 'react-star-rating-component'
 import { useLanguage } from '../../hooks/useLanguage'
@@ -79,7 +79,11 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
             }}
           ></div>
         </div>
-        <CallToAction product={product} />
+      </div>
+      <div className="flex flex-col">
+        <Button background={'rgba(var(--color-primary))'} color={'rgba(var(--text-color))'} isDisabled={false}>
+          Book now
+        </Button>
       </div>
     </Box>
   )

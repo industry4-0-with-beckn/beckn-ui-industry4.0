@@ -5,11 +5,11 @@ import SearchBar from '../components/header/SearchBar'
 import ProductList from '../components/productList/ProductList'
 import useRequest from '../hooks/useRequest'
 import { responseDataActions } from '../store/responseData-slice'
-import { RetailItem } from '../lib/types/products'
+import { IndustryItem } from '../lib/types/products'
 import Loader from '../components/loader/Loader'
-import { useLanguage } from '../hooks/useLanguage'
 import { useRouter } from 'next/router'
-
+import { useLanguage } from '../hooks/useLanguage'
+// const { t } = useLanguage()
 //Mock data for testing search API. Will remove after the resolution of CORS issue
 
 const Search = () => {
@@ -24,6 +24,7 @@ const Search = () => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   //const apiUrl = process.env.NEXT_PUBLIC_DSEP_URL
   const { data, loading, error, fetchData } = useRequest()
+  // console.log("providerdata",data)
 
   // const categoryMap = {
   //   Books: { en: 'BookEnglish', fa: 'BookFrench' },
@@ -52,16 +53,7 @@ const Search = () => {
   }, [searchKeyword])
 
   const searchPayload = {
-    context: {
-      domain: 'retail'
-    },
-    message: {
-      criteria: {
-        dropLocation: '12.9715987,77.5945627',
-        categoryName: 'Courses',
-        searchString: searchKeyword
-      }
-    }
+    searchTitle: searchKeyword
   }
 
   // const searchPayload = {
@@ -77,8 +69,8 @@ const Search = () => {
   //   }
   // }
 
-  const fetchDataForSearch = () => fetchData(`${apiUrl}/client/v2/search`, 'POST', searchPayload)
-
+  // const fetchDataForSearch = () => fetchData(`${apiUrl}/client/v2/search`, 'POST', searchPayload)
+  const fetchDataForSearch = () => fetchData(`${apiUrl}/search`, 'POST', searchPayload)
   useEffect(() => {
     if (localStorage && !localStorage.getItem('searchItems')) {
       if (providerId) {
@@ -98,29 +90,31 @@ const Search = () => {
     }
   }, [])
 
+  //==============
   useEffect(() => {
     if (data) {
       dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
-      const allItems = data.message.catalogs.flatMap((catalog: any) => {
-        if (catalog.message && catalog.message.catalog && catalog.message.catalog['bpp/providers'].length > 0) {
-          const providers = catalog.message.catalog['bpp/providers']
-          return providers.flatMap((provider: any) => {
-            if (provider.items && provider.items.length > 0) {
-              return provider.items.map((item: RetailItem) => {
-                return {
-                  bpp_id: catalog.context.bpp_id,
-                  bpp_uri: catalog.context.bpp_uri,
-                  ...item,
-                  providerId: provider.id,
-                  locations: provider.locations,
-                  bppName: catalog.message.catalog['bpp/descriptor'].name
-                }
-              })
-            }
-            return []
-          })
+
+      let allItems = data.serviceProviders.map((provider: any) => {
+        return {
+          price: {
+            value: provider.items[0].value,
+            currency: provider.items[0].currency
+            // value: "50",
+          },
+          id: provider.id,
+          descriptor: {
+            // images: ["https://images.pexels.com/photos/5532672/pexels-photo-5532672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"],
+            images: provider.images,
+            name: provider.name,
+            short_desc: provider.short_desc,
+            long_desc: provider.long_desc
+          },
+          tags: {
+            authorName: 'Industry 4.0',
+            rating: '5'
+          }
         }
-        return []
       })
       localStorage.setItem('searchItems', JSON.stringify(allItems))
       setItems(allItems)
@@ -159,7 +153,7 @@ const Search = () => {
                 fontWeight: '600',
                 fontSize: '16px'
               }}
-              subLoadingText={t.coursesCatalogLoader}
+              subLoadingText={t.servicesCatalogLoader}
               loadingText={t.catalogLoader}
             />
           </div>

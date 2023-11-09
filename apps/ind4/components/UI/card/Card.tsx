@@ -9,6 +9,7 @@ import { Box, Flex, Text, Image } from '@chakra-ui/react'
 import StarIcon from '../../../public/images/Star.svg'
 import greenVegIcon from '../../../public/images/greenVeg.svg'
 import redNonVegIcon from '../../../public/images/redNonVeg.svg'
+import { useRouter } from 'next/router'
 
 interface Props {
   product: RetailItem
@@ -16,6 +17,7 @@ interface Props {
 
 const Card: React.FC<Props> = ({ product }) => {
   const encodedProduct = window.btoa(toBinary(JSON.stringify(product)))
+  const router = useRouter()
 
   return (
     <Box
@@ -23,10 +25,18 @@ const Card: React.FC<Props> = ({ product }) => {
       maxH={'100%'}
       className="col-span-6 sm:col-span-3 md:col-span-4 lg:col-span-3 2xl:col-span-2 shadow-xl my-1 md:my-4 ltr:mr-2 rtl:ml-1 md:mx-6  bg-[#fff] rounded-xl flex relative"
     >
-      <Link
-        href={{
-          pathname: '/product',
-          query: { productDetails: encodedProduct }
+      <a
+        onClick={e => {
+          e.preventDefault()
+          if (typeof window !== 'undefined') {
+            localStorage.setItem('productDetails', JSON.stringify({ product: product }))
+          }
+          router.push({
+            pathname: '/product',
+            query: {
+              productDetails: encodedProduct
+            }
+          })
         }}
       >
         <div className="flex md:items-center md:flex-col relative w-full ">
@@ -88,7 +98,7 @@ const Card: React.FC<Props> = ({ product }) => {
               bottom={'-15px'}
               width={'calc(100% - 30px)'}
             >
-              <ProductPrice price={parseFloat(product.price.value)} />
+              {/* <ProductPrice price={parseFloat(product.price.value)} /> */}
               <Flex alignItems={'center'}>
                 {/* eslint-disable-next-line jsx-a11y/alt-text */}
                 <Image src={StarIcon} />
@@ -99,7 +109,7 @@ const Card: React.FC<Props> = ({ product }) => {
             </Flex>
           </Box>
         </div>
-      </Link>
+      </a>
 
       <CardActions product={product} />
     </Box>

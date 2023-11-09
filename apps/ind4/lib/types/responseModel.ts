@@ -18,6 +18,7 @@ export interface RetailContext {
 export interface ResponseModel {
   context: RetailContext
   message: any
+  serviceProviders?: any
   // Hacky fix
   name: string
 }
