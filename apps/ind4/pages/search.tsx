@@ -53,21 +53,12 @@ const Search = () => {
   }, [searchKeyword])
 
   const searchPayload = {
-    searchTitle: searchKeyword
+    searchTitle: searchKeyword,
+    userLocation: '30.876877, 73.868969',
+    userRadiustype: 'CONSTANT',
+    userRadiusvalue: '3',
+    userRadiusunit: 'miles'
   }
-
-  // const searchPayload = {
-  //   context: {
-  //     domain: 'retail'
-  //   },
-  //   message: {
-  //     criteria: {
-  //       dropLocation: '12.9715987,77.5945627',
-  //       categoryName: 'Courses',
-  //       searchString: searchKeyword
-  //     }
-  //   }
-  // }
 
   // const fetchDataForSearch = () => fetchData(`${apiUrl}/client/v2/search`, 'POST', searchPayload)
   const fetchDataForSearch = () => fetchData(`${apiUrl}/search`, 'POST', searchPayload)

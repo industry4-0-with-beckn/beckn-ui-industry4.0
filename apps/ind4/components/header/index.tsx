@@ -3,31 +3,31 @@ import Link from 'next/link'
 import BottomModal from '../BottomModal'
 import { Box, Image, Text } from '@chakra-ui/react'
 import Settings from './Settings'
-import CartIcon from '../cart/CartIcon'
+// import CartIcon from '../cart/CartIcon'
 import { useRouter } from 'next/router'
 
 import { useLanguage } from '../../hooks/useLanguage'
 
-const cartIconBlackList = [
-  '/orderConfirmation',
-  '/orderDetails',
-  '/trackOrder',
-  '/feedback',
-  '/orderHistory',
-  '/',
-  '/mobileOtp',
-  '/cart',
-  '/checkoutPage',
-  '/paymentMode',
-  '/jobSearch',
-  '/jobDetails',
-  '/jobApply',
-  '/createProfile',
-  '/myScholarship',
-  '/myLearningOrderHistory',
-  '/myJobsOrderHistory',
-  '/applyJobsPrefilled'
-]
+// const cartIconBlackList = [
+//   '/orderConfirmation',
+//   '/orderDetails',
+//   '/trackOrder',
+//   '/feedback',
+//   '/orderHistory',
+//   '/',
+//   '/mobileOtp',
+//   '/cart',
+//   '/checkoutPage',
+//   '/paymentMode',
+//   '/jobSearch',
+//   '/jobDetails',
+//   '/jobApply',
+//   '/createProfile',
+//   '/myScholarship',
+//   '/myLearningOrderHistory',
+//   '/myJobsOrderHistory',
+//   '/applyJobsPrefilled'
+// ]
 
 const backIconList = ['/', '/orderDetails']
 
@@ -237,7 +237,7 @@ const BottomHeader = () => {
 
           {getHeaderTitleForPage(optionTags?.name, optionTags?.logo, router.pathname, locale)}
           <div className="flex gap-4">
-            {!cartIconBlackList.includes(router.pathname) && <CartIcon />}
+            {/* {!cartIconBlackList.includes(router.pathname) && <CartIcon />} */}
             {skipWhiteList.includes(router.pathname) && (
               <Link href={'/homePage'}>
                 <Box cursor={'pointer'} fontSize={'15px'} color="rgba(var(--color-primary))" onClick={() => {}}>
