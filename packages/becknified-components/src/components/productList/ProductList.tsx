@@ -13,17 +13,17 @@ const ProductList: React.FC<ProductListProps> = props => {
 
   useEffect(() => {
     const clonedproductList = structuredClone(productList)
-    if (selectedRadioBtn === 'expensive') {
-      return setSortedProductList(clonedproductList.sort(sortByExpensive))
-    }
+    // if (selectedRadioBtn === 'expensive') {
+    //   return setSortedProductList(clonedproductList.sort(sortByExpensive))
+    // }
 
-    if (selectedRadioBtn === 'cheapest') {
-      return setSortedProductList(clonedproductList.sort(sortByCheapest))
-    }
+    // if (selectedRadioBtn === 'cheapest') {
+    //   return setSortedProductList(clonedproductList.sort(sortByCheapest))
+    // }
 
-    if (selectedRadioBtn === 'all') {
-      return setSortedProductList(clonedproductList)
-    }
+    // if (selectedRadioBtn === 'all') {
+    //   return setSortedProductList(clonedproductList)
+    // }
   }, [selectedRadioBtn])
 
   function onChangeHandler(e: React.ChangeEvent<HTMLInputElement>) {
@@ -32,23 +32,23 @@ const ProductList: React.FC<ProductListProps> = props => {
 
   return (
     <Box pt={'25px'} className="w-full xl:max-w-[2100px] mx-auto product-list-container">
-      {sortedProductList && sortedProductList.length ? (
-        <div className="sort-list-container">
-          <Sort selectedBtn={selectedRadioBtn} onChangeSelectedBtn={onChangeHandler} />
-          <Box
-            paddingTop={'70px'}
-            className="grid gap-4 md:gap-2 grid-cols-6 md:grid-cols-12 product-card-list-container"
-          >
-            {sortedProductList.map(product => {
-              return <ProductCard key={product.id} product={product} {...restProps} />
-            })}
-          </Box>
-        </div>
-      ) : (
-        <p className="text-palette-mute text-center mt-14">
-          There are no products in this category yet! New products will be added soon
-        </p>
-      )}
+      {sortedProductList &&
+        sortedProductList.length(
+          // ? (
+          // <div className="sort-list-container">
+          //   <Sort selectedBtn={selectedRadioBtn} onChangeSelectedBtn={onChangeHandler} />
+          //   <Box
+          //     paddingTop={'70px'}
+          //     className="grid gap-4 md:gap-2 grid-cols-6 md:grid-cols-12 product-card-list-container"
+          //   >
+          //     {sortedProductList.map(product => {
+          //       return <ProductCard key={product.id} product={product} {...restProps} />
+          //     })}
+          //   </Box>
+          // </div>
+          // ) :
+          <p className="text-palette-mute text-center mt-14">There are no services in this domain yet!</p>
+        )}
     </Box>
   )
 }

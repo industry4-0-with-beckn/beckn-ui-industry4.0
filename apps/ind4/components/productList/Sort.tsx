@@ -23,21 +23,21 @@ const Sort: React.FC<Props> = ({ selectedBtn: selectedRadioBtn, onChangeSelected
       width={'100%'}
       ml={'-20px'}
     >
-      <div
+      {/* <div
         className="my-4 pb-2 flex flex-wrap border-b-2 border-slate-300"
         style={{
           marginTop: '15px',
           width: 'calc(100% - 40px)',
           margin: '0 auto'
         }}
-      >
-        <div className="flex items-center" style={{ fontSize: '15px' }}>
+      > */}
+      {/* <div className="flex items-center" style={{ fontSize: '15px' }}>
           <div className="flex items-center" style={{ fontSize: '12px' }}>
             <BsFilterLeft style={{ fontSize: '1.5rem', paddingRight: '5px' }} />
           </div>
           <h5 className="ltr:ml-1 rtl:mr-1">{t.sort}</h5>
-        </div>
-
+        </div> */}
+      {/* 
         <div className="flex flex-wrap items-center" style={{ marginTop: '5px' }}>
           {radioBtnValue.map(radioInput => {
             return (
@@ -68,8 +68,8 @@ const Sort: React.FC<Props> = ({ selectedBtn: selectedRadioBtn, onChangeSelected
               </div>
             )
           })}
-        </div>
-      </div>
+        </div> */}
+      {/* </div> */}
     </Box>
   )
 }

@@ -46,16 +46,16 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
           {product.descriptor.name}
         </h2>
         <Text mt={'10px'} mb={'10px'} fontSize={'14px'}>
-          by {product.bppName}
+          {product.descriptor.short_desc}
         </Text>
 
-        {product.tags.foodType ? (
+        {/* {product.tags.foodType ? (
           product.tags.foodType === 'veg' ? (
             <Image pt={'4px'} src={greenVegIcon} alt="greenVegIcon" />
           ) : (
             <Image pt={'4px'} src={redNonVegIcon} alt="redNonVegIcon" />
           )
-        ) : null}
+        ) : null} */}
       </Flex>
       <hr className="mt-1 hidden md:block" />
       <div className="flex items-start flex-wrap relative ">

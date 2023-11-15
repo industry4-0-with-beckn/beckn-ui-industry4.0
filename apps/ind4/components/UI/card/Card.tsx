@@ -84,13 +84,16 @@ const Card: React.FC<Props> = ({ product }) => {
               ) : null}
             </Flex>
             <Flex fontSize={'12px'} alignItems={'center'} mb={'8px'}>
-              <Text fontWeight={'600'}>Duration:</Text>
-              <Text pl={'3px'}>1 Month</Text>
+              {/* <Text fontWeight={'600'}>Sold by:</Text> */}
+              <Text pl={'3px'}>{product.descriptor.short_desc}</Text>
             </Flex>
             <Flex fontSize={'12px'} alignItems={'center'} mb={'8px'}>
-              <Text fontWeight={'600'}>Sold by:</Text>
-              <Text pl={'3px'}>{(product as any).bppName}</Text>
+              <Text pl={'3px'}>{product.descriptor.long_desc}</Text>
             </Flex>
+            <Flex fontSize={'12px'} alignItems={'center'} mb={'8px'}>
+              <Text pl={'3px'}>800m</Text>
+            </Flex>
+
             <Flex
               justifyContent={'space-between'}
               alignItems={'center'}
