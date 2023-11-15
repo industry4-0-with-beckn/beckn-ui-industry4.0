@@ -47,8 +47,8 @@ const Card: React.FC<Props> = ({ product }) => {
             <div className="flex items-center h-full  product-img-span">
               <Image
                 src={product.descriptor.images[0]}
-                width={'110px'}
-                height={'133px'}
+                width={'118px'}
+                height={'168px'}
                 alt={product.descriptor.name}
                 className=" drop-shadow-xl object-contain hover:scale-110 transition-transform duration-300 ease-in-out "
               />
@@ -57,13 +57,13 @@ const Card: React.FC<Props> = ({ product }) => {
           <Box
             p={'15px'}
             pt={'11px'}
-            w={'63%'}
+            w={'65%'}
             position={'relative'}
             className="flex flex-col md:w-full md:px-3  md:py-4"
           >
             <Flex justifyContent={'space-between'} alignItems={'flex-start'} w={'100%'}>
               <Text
-                w={'80%'}
+                w={'90%'}
                 fontWeight={'600'}
                 fontSize={'15px'}
                 mb={'10px'}
@@ -75,13 +75,13 @@ const Card: React.FC<Props> = ({ product }) => {
                 {product.descriptor.name}
               </Text>
 
-              {product.tags.foodType ? (
+              {/* {product.tags.foodType ? (
                 product.tags.foodType === 'veg' ? (
                   <Image pt={'4px'} src={greenVegIcon} alt="greenVegIcon" />
                 ) : (
                   <Image pt={'4px'} src={redNonVegIcon} alt="nonVegIcon" />
                 )
-              ) : null}
+              ) : null} */}
             </Flex>
             <Flex fontSize={'12px'} alignItems={'center'} mb={'8px'}>
               {/* <Text fontWeight={'600'}>Sold by:</Text> */}
@@ -93,6 +93,13 @@ const Card: React.FC<Props> = ({ product }) => {
             <Flex fontSize={'12px'} alignItems={'center'} mb={'8px'}>
               <Text pl={'3px'}>800m</Text>
             </Flex>
+            <Flex alignItems={'center'}>
+              {/* eslint-disable-next-line jsx-a11y/alt-text */}
+              <Image src={StarIcon} />
+              <Text fontSize={'12px'} pl={'5px'}>
+                {product.tags.Rating}
+              </Text>
+            </Flex>
 
             <Flex
               justifyContent={'space-between'}
@@ -102,13 +109,6 @@ const Card: React.FC<Props> = ({ product }) => {
               width={'calc(100% - 30px)'}
             >
               {/* <ProductPrice price={parseFloat(product.price.value)} /> */}
-              <Flex alignItems={'center'}>
-                {/* eslint-disable-next-line jsx-a11y/alt-text */}
-                <Image src={StarIcon} />
-                <Text fontSize={'12px'} pl={'5px'}>
-                  {product.tags.Rating}
-                </Text>
-              </Flex>
             </Flex>
           </Box>
         </div>

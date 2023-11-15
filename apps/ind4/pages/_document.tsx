@@ -3,7 +3,7 @@ export default function Document() {
   return (
     <Html>
       <Head>
-        <meta name="description" content="A retail app powered by beckn protocol" />
+        <meta name="description" content="A supplychain app powered by beckn protocol" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link
