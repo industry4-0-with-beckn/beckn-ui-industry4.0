@@ -10,6 +10,7 @@ import StarIcon from '../../../public/images/Star.svg'
 import greenVegIcon from '../../../public/images/greenVeg.svg'
 import redNonVegIcon from '../../../public/images/redNonVeg.svg'
 import { useRouter } from 'next/router'
+import ProductRating from '../../starRating/Rating'
 
 interface Props {
   product: RetailItem
@@ -74,14 +75,6 @@ const Card: React.FC<Props> = ({ product }) => {
               >
                 {product.descriptor.name}
               </Text>
-
-              {/* {product.tags.foodType ? (
-                product.tags.foodType === 'veg' ? (
-                  <Image pt={'4px'} src={greenVegIcon} alt="greenVegIcon" />
-                ) : (
-                  <Image pt={'4px'} src={redNonVegIcon} alt="nonVegIcon" />
-                )
-              ) : null} */}
             </Flex>
             <Flex fontSize={'12px'} alignItems={'center'} mb={'8px'}>
               {/* <Text fontWeight={'600'}>Sold by:</Text> */}
@@ -97,7 +90,7 @@ const Card: React.FC<Props> = ({ product }) => {
               {/* eslint-disable-next-line jsx-a11y/alt-text */}
               <Image src={StarIcon} />
               <Text fontSize={'12px'} pl={'5px'}>
-                {product.tags.Rating}
+                {product.rating}
               </Text>
             </Flex>
 
@@ -118,5 +111,4 @@ const Card: React.FC<Props> = ({ product }) => {
     </Box>
   )
 }
-
 export default Card

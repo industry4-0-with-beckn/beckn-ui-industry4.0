@@ -61,9 +61,9 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
       <div className="flex items-start flex-wrap relative ">
         <div className="flex-grow ">
           <div className="flex items-center self-center" style={{ justifyContent: 'center' }}>
-            <StarRatingComponent name="product_rate" starCount={5} value={parseFloat(product.tags.Rating)} />
+            <StarRatingComponent name="product_rate" starCount={5} value={parseFloat(product.rating)} />
             <p className="text-sm text-palette-mute rtl:mr-2 ltr:ml-2 pl-1 ">
-              {parseFloat(product.tags.Rating)} {t.stars}
+              {parseFloat(product.rating)} {t.stars}
             </p>
           </div>
 

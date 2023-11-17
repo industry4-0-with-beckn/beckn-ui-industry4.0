@@ -69,6 +69,13 @@ export interface RetailItem {
     short_desc: string
     long_desc: string
   }
+  rating?: string
+
+  location?: {
+    code?: string
+    name?: string
+    gps?: string
+  }
   location_id?: string
   recommended?: boolean
   tags: {

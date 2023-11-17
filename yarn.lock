@@ -4339,6 +4339,7 @@ __metadata:
     jest-environment-jsdom: ^29.6.4
     lint-staged: ^14.0.1
     prettier: ^3.0.3
+    react-rating-stars-component: ^2.2.0
     ts-jest: ^29.1.1
   languageName: unknown
   linkType: soft
@@ -10843,6 +10844,13 @@ __metadata:
     react-native:
       optional: true
   checksum: d2de6a0992dbf039ff2de564de1ae6361f8ac7310159dae42ec16f833b79c05caedced187235c42373ac331cc5f2fe9e2b31b14ae75a815e86d86e30ca9887ad
+  languageName: node
+  linkType: hard
+
+"react-rating-stars-component@npm:^2.2.0":
+  version: 2.2.3
+  resolution: "react-rating-stars-component@npm:2.2.3"
+  checksum: 73be7b080aa02372ab06642d50f29cf08eea24276c01b68905ef10e0293835fd986ebfa5e0f4b650e504e8215b16aacdf3f858fead2df2bdc77a5f7d8dbad4ee
   languageName: node
   linkType: hard
 

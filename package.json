@@ -39,7 +39,8 @@
     ]
   },
   "dependencies": {
-    "eslint-config-next": "latest"
+    "eslint-config-next": "latest",
+    "react-rating-stars-component": "^2.2.0"
   },
   "devDependencies": {
     "@beckn-ui/prettier-config": "workspace:^",

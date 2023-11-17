@@ -6,6 +6,7 @@ import ProductList from '../components/productList/ProductList'
 import useRequest from '../hooks/useRequest'
 import { responseDataActions } from '../store/responseData-slice'
 import { IndustryItem } from '../lib/types/products'
+import { RetailItem } from '../lib/types/products'
 import Loader from '../components/loader/Loader'
 import { useRouter } from 'next/router'
 import { useLanguage } from '../hooks/useLanguage'
@@ -22,14 +23,8 @@ const Search = () => {
   const [tagValue, setTagValue] = useState('')
 
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
-  //const apiUrl = process.env.NEXT_PUBLIC_DSEP_URL
-  const { data, loading, error, fetchData } = useRequest()
-  // console.log("providerdata",data)
 
-  // const categoryMap = {
-  //   Books: { en: 'BookEnglish', fa: 'BookFrench' },
-  //   restaurant: { en: 'FoodEnglish', fa: 'FoodFrench' }
-  // }
+  const { data, loading, error, fetchData } = useRequest()
 
   useEffect(() => {
     if (!!searchKeyword) {
@@ -54,10 +49,11 @@ const Search = () => {
 
   const searchPayload = {
     searchTitle: searchKeyword,
-    userLocation: '30.876877, 73.868969',
+    userLocation: '50.313409, 11.912811',
     userRadiustype: 'CONSTANT',
-    userRadiusvalue: '20',
-    userRadiusunit: 'miles'
+    userRadiusvalue: '6',
+    userRadiusunit: 'miles',
+    userRating: 'lt<4'
   }
 
   // const fetchDataForSearch = () => fetchData(`${apiUrl}/client/v2/search`, 'POST', searchPayload)
@@ -97,14 +93,21 @@ const Search = () => {
           descriptor: {
             // images: ["https://images.pexels.com/photos/5532672/pexels-photo-5532672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"],
             images:
-              provider.images /*?? "https://images.pexels.com/photos/5532672/pexels-photo-5532672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"*/,
+              provider.images ||
+              'https://images.pexels.com/photos/5532672/pexels-photo-5532672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
             name: provider.name,
             short_desc: provider.short_desc,
             long_desc: provider.long_desc
           },
+          rating: provider.rating,
           tags: {
             authorName: 'Industry 4.0',
             rating: '5'
+          },
+          location: {
+            code: provider.location[0].code,
+            name: provider.location[0].name,
+            gps: provider.location[0].gps
           }
         }
       })
@@ -113,7 +116,6 @@ const Search = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
-  // console.log("Dank", data)
   return (
     <>
       <Box
