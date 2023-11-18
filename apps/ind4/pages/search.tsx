@@ -17,6 +17,8 @@ const Search = () => {
   const [items, setItems] = useState([])
   const router = useRouter()
   const [searchKeyword, setSearchKeyword] = useState(router.query?.searchTerm || '')
+  const [filterRating, setFilterRating] = useState(router.query?.rating || '')
+  // debugger;
   const dispatch = useDispatch()
   const [providerId, setProviderId] = useState('')
   const { t, locale } = useLanguage()
@@ -27,9 +29,11 @@ const Search = () => {
   const { data, loading, error, fetchData } = useRequest()
 
   useEffect(() => {
+    console.log('dank useeffect')
     if (!!searchKeyword) {
       localStorage.removeItem('searchItems')
       localStorage.setItem('optionTags', JSON.stringify({ name: searchKeyword }))
+
       window.dispatchEvent(new Event('storage-optiontags'))
       fetchDataForSearch()
     }
@@ -47,15 +51,23 @@ const Search = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchKeyword])
 
+  // useEffect(() => {
+  //   if (!!filterRating) {
+  //     localStorage.removeItem('searchItems')
+  //     localStorage.setItem('optionTags', JSON.stringify({ name: searchKeyword }))
+  //     window.dispatchEvent(new Event('storage-optiontags'))
+  //     fetchDataForSearch()
+  //   }},[filterRating])
+
   const searchPayload = {
     searchTitle: searchKeyword,
     userLocation: '50.313409, 11.912811',
     userRadiustype: 'CONSTANT',
     userRadiusvalue: '6',
     userRadiusunit: 'miles',
-    userRating: 'lt<4'
+    userRating: `gte>${filterRating}`
   }
-
+  console.log('dank rating', filterRating, searchKeyword, searchPayload)
   // const fetchDataForSearch = () => fetchData(`${apiUrl}/client/v2/search`, 'POST', searchPayload)
   const fetchDataForSearch = () => fetchData(`${apiUrl}/search`, 'POST', searchPayload)
   useEffect(() => {

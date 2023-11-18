@@ -1,36 +1,47 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
-
+import BottomModal from '../BottomModal'
 import ImageCard from './ImageCard'
 import { useLanguage } from '../../hooks/useLanguage'
 import { Box, Flex, Text, Input, Image } from '@chakra-ui/react'
 import MapSearch from '../Map/MapSearch'
 import useRequest from '../../hooks/useRequest'
 import Style from './landingpage.css'
-
+import style from '../../components/detailsCard/ShippingForm.module.css'
+import Button from '../button/Button'
 import beckenFooter from '../../public/images/beckenFooterLogo.svg'
-import EmptyBox from '../../public/images/EmptyInbox.svg'
-import couresImageWhite from '../../public/images/landing-page-icons/CoursesWhite.svg'
-import coursesImageBlack from '../../public/images/landing-page-icons/CoursesBlack.svg'
-import jobsImageBlack from '../../public/images/landing-page-icons/jobsBlack.svg'
-import jobsImageWhite from '../../public/images/landing-page-icons/jobsWhite.svg'
-import scholarshipImageBlack from '../../public/images/landing-page-icons/scholarshipBlack.svg'
-import scholarshipImageWhite from '../../public/images/landing-page-icons/scholarshipWhite.svg'
+import FilterModal from '../filter/FilterModal'
 
 const LandingPage: React.FC = () => {
   const { t } = useLanguage()
   const [searchTerm, setSearchTerm] = useState('')
   const [activeCard, setActiveCard] = useState<string | null>('course')
-
-  const cardTypes = ['course', 'scholarship', 'jobs']
-
+  // const [rating,setRating] = useState('')
+  // const rating;
   const navigateToSearchResults = () => {
-    localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm }))
-    Router.push(`/search?searchTerm=${searchTerm}`)
+    const optionTags = localStorage.getItem('optionTags')
+    const { rating } = JSON.parse(optionTags)
+    console.log('dank rating', rating)
+    localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: rating }))
+    // debugger;
+    console.log('dank term', rating, searchTerm)
+    Router.push(`/search?searchTerm=${searchTerm}&rating=${rating}`)
   }
 
   const handleClick = (type: string) => {
     setActiveCard(type)
+  }
+
+  //filter
+  const [isFilterModalOpen, setFilterModalOpen] = useState(false)
+  // const handleFilterModalClose = (ratingvalue) => {
+  //   // setRating(ratingvalue)
+  //   localStorage.setItem('optionTags', JSON.stringify({rating: ratingvalue }))
+  //   console.log("dank set",ratingvalue )
+  // }
+
+  const onFilterCloseNew = val => {
+    localStorage.setItem('optionTags', JSON.stringify({ rating: val }))
   }
 
   //location search bar
@@ -75,29 +86,6 @@ const LandingPage: React.FC = () => {
         fetchResults={fetchLocationByQuery}
         setShowSuggestions={setShowSuggestions}
       />
-      {/* <Flex justifyContent={'space-between'} alignItems="center" pt={'25px'}>
-        {cardTypes.map(type => (
-          <ImageCard
-            key={type}
-            image={
-              activeCard === type
-                ? type === 'course'
-                  ? couresImageWhite
-                  : type === 'scholarship'
-                  ? scholarshipImageWhite
-                  : jobsImageWhite
-                : type === 'course'
-                ? coursesImageBlack
-                : type === 'scholarship'
-                ? scholarshipImageBlack
-                : jobsImageBlack
-            }
-            text={type === 'course' ? t.courseImgText : type === 'scholarship' ? t.scholarshipImgText : t.jobsImgText}
-            onClick={() => handleClick(type)}
-            isActive={activeCard === type}
-          />
-        ))}
-      </Flex> */}
 
       <Flex pt={'25px'}>
         <Input
@@ -115,7 +103,7 @@ const LandingPage: React.FC = () => {
           }}
         />
         <Flex
-          bg={'rgba(var(--color-primary))'}
+          // bg={'rgba(var(--color-primary))'}
           borderRightRadius={'6px'}
           boxShadow="0px 0px 24px rgba(0, 0, 0, 0.10)"
           justifyContent={'center'}
@@ -132,6 +120,21 @@ const LandingPage: React.FC = () => {
             }}
             alt={'search icon'}
           />
+        </Flex>
+        {/* filter */}
+        <Flex
+          bg={'rgba(var(--color-primary))'}
+          borderRightRadius={'6px'}
+          boxShadow="0px 0px 24px rgba(0, 0, 0, 0.10)"
+          justifyContent={'center'}
+          alignItems="center"
+          width={'55px'}
+        >
+          {/* <Image
+            src="/images/filter.svg"
+            onClick={() => setFilterModalOpen(true)}
+          /> */}
+          <FilterModal onFilterCloseNew={onFilterCloseNew}></FilterModal>
         </Flex>
       </Flex>
       {/* emptyboximage */}
