@@ -1,31 +1,26 @@
 import React, { useState } from 'react'
 import Router from 'next/router'
-import BottomModal from '../BottomModal'
 import ImageCard from './ImageCard'
 import { useLanguage } from '../../hooks/useLanguage'
 import { Box, Flex, Text, Input, Image } from '@chakra-ui/react'
 import MapSearch from '../Map/MapSearch'
 import useRequest from '../../hooks/useRequest'
-import Style from './landingpage.css'
-import style from '../../components/detailsCard/ShippingForm.module.css'
 import Button from '../button/Button'
 import beckenFooter from '../../public/images/beckenFooterLogo.svg'
 import FilterModal from '../filter/FilterModal'
-
 const LandingPage: React.FC = () => {
   const { t } = useLanguage()
   const [searchTerm, setSearchTerm] = useState('')
   const [activeCard, setActiveCard] = useState<string | null>('course')
-  // const [rating,setRating] = useState('')
-  // const rating;
+
   const navigateToSearchResults = () => {
     const optionTags = localStorage.getItem('optionTags')
-    const { rating } = JSON.parse(optionTags)
-    console.log('dank rating', rating)
-    localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: rating }))
-    // debugger;
-    console.log('dank term', rating, searchTerm)
-    Router.push(`/search?searchTerm=${searchTerm}&rating=${rating}`)
+
+    const { rating, distance } = JSON.parse(optionTags)
+
+    localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: rating, distance: distance }))
+
+    Router.push(`/search?searchTerm=${searchTerm}&rating=${rating}&distance=${distance}`)
   }
 
   const handleClick = (type: string) => {
@@ -34,14 +29,13 @@ const LandingPage: React.FC = () => {
 
   //filter
   const [isFilterModalOpen, setFilterModalOpen] = useState(false)
-  // const handleFilterModalClose = (ratingvalue) => {
-  //   // setRating(ratingvalue)
-  //   localStorage.setItem('optionTags', JSON.stringify({rating: ratingvalue }))
-  //   console.log("dank set",ratingvalue )
-  // }
 
   const onFilterCloseNew = val => {
-    localStorage.setItem('optionTags', JSON.stringify({ rating: val }))
+    localStorage.setItem('optionTags', JSON.stringify({ rating: val.ratingValue, distance: val.distanceValue }))
+  }
+  const [isModalOpen, setModalOpen] = useState(false)
+  const handleModalClose = () => {
+    setModalOpen(false)
   }
 
   //location search bar
@@ -130,15 +124,14 @@ const LandingPage: React.FC = () => {
           alignItems="center"
           width={'55px'}
         >
-          {/* <Image
-            src="/images/filter.svg"
-            onClick={() => setFilterModalOpen(true)}
-          /> */}
-          <FilterModal onFilterCloseNew={onFilterCloseNew}></FilterModal>
+          <Image src="/images/filter.svg" onClick={() => setModalOpen(true)} />
+          <FilterModal
+            isOpen={isModalOpen}
+            onFilterCloseNew={onFilterCloseNew}
+            onClose={handleModalClose}
+          ></FilterModal>
         </Flex>
       </Flex>
-      {/* emptyboximage */}
-      {/* <Image className={Style.emptybox} src={EmptyBox} alt="emptybox" width={276} height={116} /> */}
 
       <Flex justifyContent={'center'} alignItems="center" width=" calc(100% - 40px)" position={'fixed'} bottom="15px">
         <Text pr={'8px'} fontSize="10px">
