@@ -12,6 +12,7 @@ const en: { [key: string]: string } = {
   product: 'Product',
   totalAmount: 'Price',
   totalQuantity: 'Total Quantity',
+  proceed: 'To proceed, please set your location and search for services ',
   payableAmount: 'Payable Amount',
   loginAndOrder: 'Login and Order',
   orderSummary: 'Order Summary',

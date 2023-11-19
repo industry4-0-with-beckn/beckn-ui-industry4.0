@@ -120,15 +120,6 @@ const LandingPage: React.FC = () => {
         </Flex>
         <Flex p={'20px 10px'}></Flex>
         {/* filter */}
-        {/* <Flex
-          bg={'rgba(var(--color-primary))'}
-          borderRightRadius={'8px'}
-          boxShadow="0px 0px 24px rgba(0, 0, 0, 0.10)"
-          justifyContent={'center'}
-          // alignItems="center"
-          width={'55px'}
-          height={'55px'}
-        > */}
         <Button
           type="submit"
           form="new-form"
@@ -144,6 +135,11 @@ const LandingPage: React.FC = () => {
         <FilterModal isOpen={isModalOpen} onFilterCloseNew={onFilterCloseNew} onClose={handleModalClose}></FilterModal>
         {/* </Flex> */}
       </Flex>
+      <Image src="/images/empty.svg" />
+
+      <Text pr={'8px'} fontSize="10px">
+        {t.proceed}
+      </Text>
 
       <Flex justifyContent={'center'} alignItems="center" width=" calc(100% - 40px)" position={'fixed'} bottom="15px">
         <Text pr={'8px'} fontSize="10px">
