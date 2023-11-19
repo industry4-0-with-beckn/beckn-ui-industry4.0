@@ -92,10 +92,10 @@ const Search = () => {
           },
           id: provider.id,
           descriptor: {
-            // images: ["https://images.pexels.com/photos/5532672/pexels-photo-5532672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"],
-            images:
-              provider.images ||
-              'https://images.pexels.com/photos/5532672/pexels-photo-5532672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1',
+            // images: ["https://www.https://images.pexels.com/photos/5532675/pexels-photo-5532675.jpeg://www.istockphoto.com/en/photo/automation-industry-concept-gm1165956623-321001419?phrase=assembly%2Bline.com/en/photo/metal-conveyers-move-boxes-inside-the-warehouse-with-shelves-and-loader-3d-gm1400564679-454098160?phrase=assembly%2Bline"],
+            images: provider.images ?? [
+              'https://images.pexels.com/photos/5532672/pexels-photo-5532672.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+            ],
             name: provider.name,
             short_desc: provider.short_desc,
             long_desc: provider.long_desc

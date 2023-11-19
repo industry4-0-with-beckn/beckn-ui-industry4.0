@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import Router from 'next/router'
 import ImageCard from './ImageCard'
 import { useLanguage } from '../../hooks/useLanguage'
-import { Box, Flex, Text, Input, Image } from '@chakra-ui/react'
+import { Box, Flex, Text, Input, Image, Button } from '@chakra-ui/react'
 import MapSearch from '../Map/MapSearch'
 import useRequest from '../../hooks/useRequest'
-import Button from '../button/Button'
+// import Button from '../button/Button'
 import beckenFooter from '../../public/images/beckenFooterLogo.svg'
 import FilterModal from '../filter/FilterModal'
 const LandingPage: React.FC = () => {
@@ -96,16 +96,19 @@ const LandingPage: React.FC = () => {
             boxShadow: 'transparent'
           }}
         />
+
         <Flex
           // bg={'rgba(var(--color-primary))'}
-          borderRightRadius={'6px'}
+          borderRightRadius={'unset'}
           boxShadow="0px 0px 24px rgba(0, 0, 0, 0.10)"
+          borderRightRadius={'6px'}
           justifyContent={'center'}
           alignItems="center"
-          width={'55px'}
+          width={'70px'}
+          height={'54px'}
         >
           <Image
-            src="/images/searchIcon.svg"
+            src="/images/searchi.svg"
             onClick={e => {
               if (searchTerm) {
                 navigateToSearchResults()
@@ -115,22 +118,31 @@ const LandingPage: React.FC = () => {
             alt={'search icon'}
           />
         </Flex>
+        <Flex p={'20px 10px'}></Flex>
         {/* filter */}
-        <Flex
+        {/* <Flex
           bg={'rgba(var(--color-primary))'}
-          borderRightRadius={'6px'}
+          borderRightRadius={'8px'}
           boxShadow="0px 0px 24px rgba(0, 0, 0, 0.10)"
           justifyContent={'center'}
-          alignItems="center"
+          // alignItems="center"
           width={'55px'}
+          height={'55px'}
+        > */}
+        <Button
+          type="submit"
+          form="new-form"
+          onClick={() => setModalOpen(true)}
+          background="rgba(var(--color-primary))"
+          // color="#FFFFFF"
+          align="center"
+          width="20%"
+          height="55px"
         >
-          <Image src="/images/filter.svg" onClick={() => setModalOpen(true)} />
-          <FilterModal
-            isOpen={isModalOpen}
-            onFilterCloseNew={onFilterCloseNew}
-            onClose={handleModalClose}
-          ></FilterModal>
-        </Flex>
+          <Image height={'60px'} width={'180%'} src="/images/filtericon.svg" onClick={() => setModalOpen(true)} />
+        </Button>
+        <FilterModal isOpen={isModalOpen} onFilterCloseNew={onFilterCloseNew} onClose={handleModalClose}></FilterModal>
+        {/* </Flex> */}
       </Flex>
 
       <Flex justifyContent={'center'} alignItems="center" width=" calc(100% - 40px)" position={'fixed'} bottom="15px">

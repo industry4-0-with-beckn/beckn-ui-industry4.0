@@ -52,16 +52,6 @@ const SearchBar: React.FC<SearchBarProp> = ({
 
   const debouncedValue = useDebounce(value, 300)
 
-  //-----style
-  const divStyle = {
-    backgroundColor: '#FFFFFF',
-    color: '#fff',
-    borderRadius: '5px',
-    height: '60px',
-    boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-    alignItems: 'center'
-  }
-
   useEffect(() => {
     setShowSuggestions(!isEmpty(value) && locations && !isEmpty(locations))
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -82,43 +72,43 @@ const SearchBar: React.FC<SearchBarProp> = ({
 
   return (
     <>
-      <div style={divStyle}>
-        <div className="max-w-[50rem] w-[90%] md:w-[90%] px-4 mx-auto mt-4 mb-3  md:ltr:ml-4 md:rtl:mr-4 rounded-[12px]  dark:bg-slate-800 flex items-center justify-center flex-grow">
-          <GoSearch style={{ color: 'rgb(156 163 175)' }} />
-          <input
-            className="px-4 py-2 md:py-3 bg-transparent outline-none w-full text-[15px] alignitems:center"
-            type="location"
-            placeholder={`${t.location}`}
-            onChange={e => setValue(e.target.value)}
-          />
-          {loading && <Spinner color="#A71B4A" size="sm" />}
-        </div>
+      <div className="max-w-[50rem] w-[90%] md:w-[90%] shadow-lg h-20 w-150 shadow-slate-200		px-4 mx-auto mt-4 mb-3  md:ltr:ml-4 md:rtl:mr-4 rounded-[12px]  dark:bg-slate-800 flex items-center justify-center flex-grow">
+        <Image className="mt-1" src="/images/locationmark.svg" alt="Location point" />
 
-        {!isEmpty(value) && locations && !isEmpty(locations) && (
-          <div className="flex flex-col overflow-scroll max-h-[100vh]  bg-white  rounded-md h-[100vh] relative z-[9995] divide-y align:center">
-            {locations.map((singleLocation, index) => {
-              const { primaryName, secondaryName } = formatLocationName(singleLocation.display_name)
-              return (
-                <div
-                  key={singleLocation.place_id}
-                  className="text-ellipsis  flex items-start gap-3 my-1 p-2 "
-                  onClick={() => {
-                    handleLocationClick(singleLocation.lat, singleLocation.lon)
-                    setQuery(primaryName)
-                    setValue('')
-                  }}
-                >
-                  <Image className="mt-1" src="/images/SearchLocationMarker.svg" alt="Location point" />
-                  <div>
-                    <h3 className="text-[15px]/[22.5px] font-[600] text-[#37474F]">{primaryName}</h3>
-                    <h4 className="text-[15px]/[17.5px] font-[400] text-[#7C7C7C]">{secondaryName}</h4>
-                  </div>
-                </div>
-              )
-            })}
-          </div>
-        )}
+        {/* <GoSearch style={{ color: 'rgb(156 163 175)' }} /> */}
+        <input
+          className="px-4 py-2 md:py-3 bg-transparent outline-none w-full text-[15px]"
+          type="location"
+          placeholder={`${t.location}`}
+          onChange={e => setValue(e.target.value)}
+        />
+        {loading && <Spinner color="#A71B4A" size="sm" />}
       </div>
+
+      {!isEmpty(value) && locations && !isEmpty(locations) && (
+        <div className="flex flex-col overflow-scroll max-h-[100vh]  bg-white  rounded-md h-[100vh] relative z-[9995] divide-y">
+          {locations.map((singleLocation, index) => {
+            const { primaryName, secondaryName } = formatLocationName(singleLocation.display_name)
+            return (
+              <div
+                key={singleLocation.place_id}
+                className="text-ellipsis  flex items-start gap-3 my-1 p-2 "
+                onClick={() => {
+                  handleLocationClick(singleLocation.lat, singleLocation.lon)
+                  setQuery(primaryName)
+                  setValue('')
+                }}
+              >
+                {/* <Image className="mt-1" src="/images/locationmark.svg" alt="Location point" /> */}
+                <div>
+                  <h3 className="text-[15px]/[22.5px] font-[600] text-[#37474F]">{primaryName}</h3>
+                  <h4 className="text-[15px]/[17.5px] font-[400] text-[#7C7C7C]">{secondaryName}</h4>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )}
     </>
   )
 }

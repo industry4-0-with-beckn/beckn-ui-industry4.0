@@ -146,7 +146,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({ handleMenuClick }) => {
           <div>
             <Image src="/images/Suppliflow.svg" alt="App logo" />
           </div>
-          <div className="ml-auto flex gap-4">
+          {/* <div className="ml-auto flex gap-4">
             {languageIconWhiteList.includes(router.pathname) && <Settings />}
 
             {menuIconWhiteList.includes(router.pathname) && (
@@ -173,7 +173,7 @@ const TopHeader: React.FC<TopHeaderProps> = ({ handleMenuClick }) => {
                 alt="home Icon"
               />
             )}
-          </div>
+          </div> */}
         </div>
       </div>
 
