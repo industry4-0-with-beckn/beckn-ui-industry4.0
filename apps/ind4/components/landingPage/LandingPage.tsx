@@ -16,12 +16,23 @@ const LandingPage: React.FC = () => {
   const navigateToSearchResults = () => {
     const optionTags = localStorage.getItem('optionTags')
 
-    const { rating, distance } = JSON.parse(optionTags)
+    // const { rating, distance } = JSON.parse(optionTags)
 
-    localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: rating, distance: distance }))
+    localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: '1', distance: '0.0' }))
 
-    Router.push(`/search?searchTerm=${searchTerm}&rating=${rating}&distance=${distance}`)
+    Router.push(`/search?searchTerm=${searchTerm}&rating=1&distance=0.0`)
   }
+
+  //filterlogic
+  // const navigateToFilterResults = () => {
+  //   const optionTags = localStorage.getItem('optionTags')
+
+  //   const { rating, distance } = JSON.parse(optionTags)
+
+  //   localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: rating, distance: distance }))
+
+  //   Router.push(`/search?searchTerm=${searchTerm}&rating=${rating}&distance=${distance}`)
+  // }
 
   const handleClick = (type: string) => {
     setActiveCard(type)
@@ -36,6 +47,13 @@ const LandingPage: React.FC = () => {
   const [isModalOpen, setModalOpen] = useState(false)
   const handleModalClose = () => {
     setModalOpen(false)
+    const optionTags = localStorage.getItem('optionTags')
+
+    const { rating, distance } = JSON.parse(optionTags)
+
+    localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: rating, distance: distance }))
+
+    Router.push(`/search?searchTerm=${searchTerm}&rating=${rating}&distance=${distance}`)
   }
 
   //location search bar
@@ -64,13 +82,6 @@ const LandingPage: React.FC = () => {
 
   return (
     <Box p={'20px'}>
-      <Text fontSize={'40px'} fontWeight="800" color={'rgba(var(--color-primary))'} pt="30px" lineHeight={'40px'}>
-        {t.homeHeading}
-      </Text>
-      <Text fontSize={'27px'} fontWeight="800" pb={'15px'}>
-        {t.headingSpan}
-      </Text>
-      <Text fontSize={'15px'}>{t.homeText}</Text>
       {/* locationbar */}
       <MapSearch
         setQuery={setQuery}
@@ -135,11 +146,14 @@ const LandingPage: React.FC = () => {
         <FilterModal isOpen={isModalOpen} onFilterCloseNew={onFilterCloseNew} onClose={handleModalClose}></FilterModal>
         {/* </Flex> */}
       </Flex>
-      <Image src="/images/empty.svg" />
-
-      <Text pr={'8px'} fontSize="10px">
-        {t.proceed}
-      </Text>
+      <Flex alignItems="center" justifyContent={'center'}>
+        <Image src="/images/empty.svg" />
+      </Flex>
+      <Flex alignItems="center" justifyContent={'center'} color={'#9c9ea3'}>
+        <Text pr={'8px'} fontSize="10px">
+          {t.proceed}
+        </Text>
+      </Flex>
 
       <Flex justifyContent={'center'} alignItems="center" width=" calc(100% - 40px)" position={'fixed'} bottom="15px">
         <Text pr={'8px'} fontSize="10px">
