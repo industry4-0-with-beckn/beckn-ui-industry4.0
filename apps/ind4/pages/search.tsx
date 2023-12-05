@@ -51,7 +51,8 @@ const Search = () => {
 
   const searchPayload = {
     searchTitle: searchKeyword,
-    userLocation: '50.313409, 11.912811',
+    // userLocation: '50.313409, 11.912811',
+    userLocation: '30.876877, 73.868969',
     userRadiustype: 'CONSTANT',
     userRadiusvalue: `${filterDistance}`,
     userRadiusunit: 'miles',
@@ -104,12 +105,12 @@ const Search = () => {
           tags: {
             authorName: 'Industry 4.0',
             rating: '5'
-          },
-          location: {
-            code: provider.location[0].code,
-            name: provider.location[0].name,
-            gps: provider.location[0].gps
           }
+          // location: {
+          //   code: provider.location[0].code,
+          //   name: provider.location[0].name,
+          //   gps: provider.location[0].gps
+          // }
         }
       })
       localStorage.setItem('searchItems', JSON.stringify(allItems))
