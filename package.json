@@ -40,7 +40,8 @@
   },
   "dependencies": {
     "eslint-config-next": "latest",
-    "react-rating-stars-component": "^2.2.0"
+    "react-rating-stars-component": "^2.2.0",
+    "react-router-dom": "^6.20.1"
   },
   "devDependencies": {
     "@beckn-ui/prettier-config": "workspace:^",

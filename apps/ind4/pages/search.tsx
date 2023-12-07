@@ -86,6 +86,21 @@ const Search = () => {
 
       let allItems = data.serviceProviders.map((provider: any) => {
         return {
+          items: [
+            {
+              id: provider.items[0].id,
+              name: provider.items[0].name,
+              fulfillment_id: [provider.items[0].fulfillment_id],
+              tags: [
+                {
+                  code: provider.items[0].tags.code,
+                  name: provider.items[0].tags.name,
+                  display: provider.items[0].tags.display
+                }
+              ]
+            }
+          ],
+
           price: {
             value: provider.items[0].value,
             currency: provider.items[0].currency

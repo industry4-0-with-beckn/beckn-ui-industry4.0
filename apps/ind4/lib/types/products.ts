@@ -70,7 +70,11 @@ export interface RetailItem {
     long_desc: string
   }
   rating?: string
-
+  items?: [
+    {
+      id?: string
+    }
+  ]
   location?: {
     code?: string
     name?: string
@@ -97,22 +101,22 @@ export interface RetailItem {
   bppName?: string
 }
 
-export interface IndustryItem {
-  extended_attributes?: any
-  price: {
-    currency?: string
-    value: string
-  }
-  id: string
-  descriptor: {
-    images: string[]
-    name: string
-    short_desc: string
-    long_desc: string
-  }
-  tags: {
-    assembly?: string
-    automated?: string
-  }
-  bppName?: string
-}
+// export interface IndustryItem {
+//   extended_attributes?: any
+//   price: {
+//     currency?: string
+//     value: string
+//   }
+//   id: string
+//   descriptor: {
+//     images: string[]
+//     name: string
+//     short_desc: string
+//     long_desc: string
+//   }
+//   tags: {
+//     assembly?: string
+//     automated?: string
+//   }
+//   bppName?: string
+// }
