@@ -5,7 +5,6 @@ import SearchBar from '../components/header/SearchBar'
 import ProductList from '../components/productList/ProductList'
 import useRequest from '../hooks/useRequest'
 import { responseDataActions } from '../store/responseData-slice'
-import { IndustryItem } from '../lib/types/products'
 import { RetailItem } from '../lib/types/products'
 import Loader from '../components/loader/Loader'
 import { useRouter } from 'next/router'
@@ -51,14 +50,13 @@ const Search = () => {
 
   const searchPayload = {
     searchTitle: searchKeyword,
-    // userLocation: '50.313409, 11.912811',
-    userLocation: '30.876877, 73.868969',
+    userLocation: '50.313409, 11.912811',
+    // userLocation: '30.876877, 73.868969',
     userRadiustype: 'CONSTANT',
     userRadiusvalue: `${filterDistance}`,
     userRadiusunit: 'miles',
     userRating: `gte>${filterRating}`
   }
-  // const fetchDataForSearch = () => fetchData(`${apiUrl}/client/v2/search`, 'POST', searchPayload)
   const fetchDataForSearch = () => fetchData(`${apiUrl}/search`, 'POST', searchPayload)
   useEffect(() => {
     if (localStorage && !localStorage.getItem('searchItems')) {
@@ -86,6 +84,10 @@ const Search = () => {
 
       let allItems = data.serviceProviders.map((provider: any) => {
         return {
+          context: {
+            bppId: provider.context.bppId,
+            bppUri: provider.context.bppUri
+          },
           items: [
             {
               id: provider.items[0].id,
@@ -120,12 +122,12 @@ const Search = () => {
           tags: {
             authorName: 'Industry 4.0',
             rating: '5'
+          },
+          location: {
+            code: provider.location[0].code,
+            name: provider.location[0].name,
+            gps: provider.location[0].gps
           }
-          // location: {
-          //   code: provider.location[0].code,
-          //   name: provider.location[0].name,
-          //   gps: provider.location[0].gps
-          // }
         }
       })
       localStorage.setItem('searchItems', JSON.stringify(allItems))

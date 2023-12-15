@@ -1,36 +1,34 @@
 import { Box, Flex, Image, Text, Button } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import StarRatingComponent from 'react-star-rating-component'
 import { useLanguage } from '../../hooks/useLanguage'
 import useRequest from '../../hooks/useRequest'
 import Router from 'next/router'
+import { responseDataActions } from '../../store/responseData-slice'
+import Loader from '../../components/loader/Loader'
 
 import { RetailItem } from '../../lib/types/products'
 
 interface Props {
   product: RetailItem
+  // onSelectData: (val: any) => void
 }
 const DetailsSection: React.FC<Props> = ({ product }) => {
   const { t } = useLanguage()
+  const [url, setUrl] = useState()
   const [showComponent, setShowComponent] = useState(false)
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   const { data, loading, error, fetchData } = useRequest()
-  const [showContentA, setShowContentA] = useState(true)
+  const dispatch = useDispatch()
 
   const id = product.id
   const providerItemid = product.items[0].id
   // "66b7b9bad166-4a3f-ada6-ca063dc9d321"
-  const providerFulfillmentid = JSON.stringify(product.items[0].fulfillment_id)
+  const providerFulfillmentid = 'f1'
+  const bppId = product.context.bppId
+  const bppUri = product.context.bppUri //"https://35f2-194-95-60-104.ngrok-free.app"
   const providerTagname = 'select-1'
-  const bppId = 'beckn-sandbox-bpp.becknprotocol.io'
-  // const bppId = "beckn-sandbox-bpp.becknprotocol.io"
-  const bppUri = 'https://sandbox-bpp-network.becknprotocol.io/'
-  // console.log("dank item",itemId)
-
-  // const handleBook = () => {
-  // localStorage.setItem('proDet', JSON.stringify({ id: id}))
-
-  // Router.push(`/orderDetails?id=${id}`)
 
   const selectPayload = {
     context: {
@@ -46,62 +44,37 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
   const fetchDataForSelect = () => fetchData(`${apiUrl}/select`, 'POST', selectPayload)
 
   useEffect(() => {
-    // console.log(data)
-    // const formUrl = 'http://localhost:8080'
-
     if (data) {
-      dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
-      let selectedItem = data.selectProviders.map((provider: any) => {
-        return {
-          order: {
-            provider: {
-              id: provider.id
-            },
-            descriptor: {
-              name: provider.name,
-              long_desc: provider.long_desc,
-              images: provider.image
-            },
-            formUrl: items[0].xinput.form.url
-          }
-        }
-      })
-      localStorage.setItem('selectItems', JSON.stringify(selectedItem))
-      setItems(selectedItem)
+      // dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
+
+      const selectedUrl = data.formUrl
+      const providerId = data.selectProvider.provider.id
+      const itemId = data.selectProvider.items[0].id
+      const fulfillment = data.selectProvider.fulfillments[0].id
+      // onSelectData({ url: selectedUrl, providerId: providerId, itemId: itemId, fulfillmentId = fulfillment})
+
+      // let providers = data.selectProviders.provider() =>{
+      // return {
+      //     providers: {
+      //       id: provider.id,
+      //     },
+      //     descriptor: {
+      //       name: provider.name,
+      //       long_desc: provider.long_desc,
+      //       images: provider.image,
+      //     },
+      //     formUrl: items.xinput.form.url
+      //   }
+      // }
+
+      localStorage.setItem('selectUrl', JSON.stringify(selectedUrl))
+      Router.push(
+        `/formDetails?url=${selectedUrl}&pId=${providerId}&iId=${itemId}&fId=${fulfillment}&bppId=${bppId}&bppUri=${bppUri}`
+      )
+      localStorage.setItem('selectUrl', JSON.stringify(selectedUrl))
     }
-    // window.addEventListener('beforeunload', fetchDataForSelect)
-    // return () => {
-    //   // Cleanup the event listener when the component is unmounted
-    //   window.removeEventListener('beforeunload', fetchDataForSelect)
-    // }
-    // if(data){
-    //   const formUrl = 'http://localhost:8080'
-    //   Router.push(`/orderDetails?url=${formUrl}`)
-    // }
+    // })
   }, [data])
-  const toggleContent = () => {
-    setShowContentA(!showContentA)
-  }
-  const urlNew = () => {
-    fetchDataForSelect()
-
-    const formUrl = 'http://localhost:8080'
-    Router.push(`/orderDetails?url=${formUrl}`)
-  }
-
-  const ContentA = () => (
-    <div>
-      <h2>This is Content A</h2>
-      <p>Some content for A...</p>
-    </div>
-  )
-
-  const ContentB = () => (
-    <div>
-      <h2>This is Content B</h2>
-      <p>Some content for B...</p>
-    </div>
-  )
 
   //----
   useEffect(() => {
@@ -167,7 +140,7 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
           background={'rgba(var(--color-primary))'}
           color={'rgba(var(--text-color))'}
           isDisabled={false}
-          onClick={urlNew}
+          onClick={fetchDataForSelect}
 
           // onChange={urlNew}
         >

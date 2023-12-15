@@ -56,6 +56,10 @@ export interface IProduct {
 
 export interface RetailItem {
   extended_attributes?: any
+  context?: {
+    bppId?: string
+    bppUri?: string
+  }
   price: {
     listed_value?: string
     currency?: string
@@ -101,22 +105,53 @@ export interface RetailItem {
   bppName?: string
 }
 
-// export interface IndustryItem {
-//   extended_attributes?: any
-//   price: {
-//     currency?: string
-//     value: string
-//   }
-//   id: string
-//   descriptor: {
-//     images: string[]
-//     name: string
-//     short_desc: string
-//     long_desc: string
-//   }
-//   tags: {
-//     assembly?: string
-//     automated?: string
-//   }
-//   bppName?: string
-// }
+export interface ServiceProviderItem {
+  extended_attributes?: any
+  context?: {
+    bppId?: string
+    bppUri?: string
+  }
+  price: {
+    listed_value?: string
+    currency?: string
+    value: string
+  }
+  matched?: boolean
+  id: string
+  descriptor: {
+    images: string[]
+    name: string
+    short_desc: string
+    long_desc: string
+  }
+  rating?: string
+  items?: [
+    {
+      id?: string
+    }
+  ]
+  location?: {
+    code?: string
+    name?: string
+    gps?: string
+  }
+  location_id?: string
+  recommended?: boolean
+  tags: {
+    fulfillment_start_loc?: string
+    Category?: string
+    Trekking?: string
+    Himalayas?: string
+    fulfillment_end_time?: string
+    Country?: string
+    Ladakh?: string
+    Treks?: string
+    Package?: string
+    Leh?: string
+    fulfillment_end_loc?: string
+    authorName: string
+    Rating: string
+    foodType?: string
+  }
+  bppName?: string
+}

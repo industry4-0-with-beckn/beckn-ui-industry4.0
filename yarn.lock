@@ -4348,6 +4348,7 @@ __metadata:
     prettier: ^3.0.3
     react-rating-stars-component: ^2.2.0
     react-router-dom: ^6.20.1
+    react-router-hash-link: ^2.4.3
     ts-jest: ^29.1.1
   languageName: unknown
   linkType: soft
@@ -10939,6 +10940,18 @@ __metadata:
     react: ">=16.8"
     react-dom: ">=16.8"
   checksum: 137b12fd3c3fd2a9469367946353c8ccd4e31473c6ec650eeb2d9e9f256f64b031fafaecb2ae4dc47bbab817c8d089b1f07a0db74699df7d874850e511cd5380
+  languageName: node
+  linkType: hard
+
+"react-router-hash-link@npm:^2.4.3":
+  version: 2.4.3
+  resolution: "react-router-hash-link@npm:2.4.3"
+  dependencies:
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ">=15"
+    react-router-dom: ">=4"
+  checksum: 7dad53ebbd726e8a1ab379f4e68bce3a6b406e55af3de8a9c128510a81ad4a681ce9a5e25c0efc3d3c283b276145729b6228d0173d1d0c6e04b9cc6fb10738d4
   languageName: node
   linkType: hard
 
