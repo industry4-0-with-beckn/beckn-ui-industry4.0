@@ -105,18 +105,12 @@ export interface RetailItem {
   bppName?: string
 }
 
-export interface ServiceProviderItem {
+export interface initItem {
   extended_attributes?: any
   context?: {
     bppId?: string
     bppUri?: string
   }
-  price: {
-    listed_value?: string
-    currency?: string
-    value: string
-  }
-  matched?: boolean
   id: string
   descriptor: {
     images: string[]
@@ -130,28 +124,79 @@ export interface ServiceProviderItem {
       id?: string
     }
   ]
-  location?: {
-    code?: string
+  fulfillments?: {
+    id?: string
+
+    customer?: {
+      contact?: {
+        email?: string
+        phone?: string
+      }
+      person?: {
+        name?: string
+      }
+      stops: [
+        {
+          type?: string
+          location?: {
+            gps?: string
+            address?: string
+          }
+          contact?: {
+            phone?: string
+          }
+        }
+      ]
+    }
+
+    tracking?: string
+  }
+  billing?: {
     name?: string
-    gps?: string
+    address?: string
+    state?: {
+      name?: string
+    }
+    city?: {
+      name?: string
+    }
+    email?: string
+    phone?: string
   }
-  location_id?: string
-  recommended?: boolean
-  tags: {
-    fulfillment_start_loc?: string
-    Category?: string
-    Trekking?: string
-    Himalayas?: string
-    fulfillment_end_time?: string
-    Country?: string
-    Ladakh?: string
-    Treks?: string
-    Package?: string
-    Leh?: string
-    fulfillment_end_loc?: string
-    authorName: string
-    Rating: string
-    foodType?: string
+  payments?: [
+    {
+      collected_by?: string
+      params?: {
+        amount?: string
+        currency?: pstring
+        bank_account_number?: string
+        bank_code?: string
+        bank_account_name?: string
+      }
+      status?: string
+      type?: string
+    }
+  ]
+  quote?: {
+    breakup?: [
+      {
+        price?: {
+          currency?: string
+          value?: string
+        }
+        title?: string
+      },
+      {
+        price?: {
+          currency?: string
+          value?: string
+        }
+        title?: string
+      }
+    ]
+    price?: {
+      currency?: string
+      value?: string
+    }
   }
-  bppName?: string
 }

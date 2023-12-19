@@ -42,7 +42,6 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
   }
 
   const fetchDataForSelect = () => fetchData(`${apiUrl}/select`, 'POST', selectPayload)
-
   useEffect(() => {
     if (data) {
       // dispatch(responseDataActions.addTransactionId(data.context.transaction_id))

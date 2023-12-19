@@ -24,33 +24,36 @@ import AddBillingButton from '../components/detailsCard/AddBillingButton'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import axios from 'axios'
+import { initItem } from '../lib/types/products'
 
-export type ShippingFormData = {
-  name: string
-  mobileNumber: string
-  email: string
-  address: string
-  pinCode: string
+interface Props {
+  initDetails: initItem
 }
+// export type ShippingFormData = {
+//   name: string
+//   mobileNumber: string
+//   email: string
+//   address: string
+//   pinCode: string
+// }
+const CheckoutPage: React.FC<Props> = ({ initDetails }) => {
+  // const [formData, setFormData] = useState<ShippingFormData>({
+  //   name: 'Santosh Kumar',
+  //   mobileNumber: '9876543210',
+  //   email: 'santosh.k@gmail.com',
+  //   address: '151-E, Janpath Road, New Delhi',
+  //   pinCode: '201016'
+  // })
 
-const CheckoutPage = () => {
-  const [formData, setFormData] = useState<ShippingFormData>({
-    name: 'Santosh Kumar',
-    mobileNumber: '9876543210',
-    email: 'santosh.k@gmail.com',
-    address: '151-E, Janpath Road, New Delhi',
-    pinCode: '201016'
-  })
+  // const [isBillingAddressSameAsShippingAddress, setIsBillingAddressSameAsShippingAddress] = useState(true)
 
-  const [isBillingAddressSameAsShippingAddress, setIsBillingAddressSameAsShippingAddress] = useState(true)
-
-  const [billingFormData, setBillingFormData] = useState<ShippingFormData>({
-    name: '',
-    mobileNumber: '',
-    email: '',
-    address: '',
-    pinCode: ''
-  })
+  // const [billingFormData, setBillingFormData] = useState<ShippingFormData>({
+  //   name: '',
+  //   mobileNumber: '',
+  //   email: '',
+  //   address: '',
+  //   pinCode: ''
+  // })
 
   const router = useRouter()
   const initRequest = useRequest()
@@ -81,95 +84,95 @@ const CheckoutPage = () => {
         const documents = profileResponse.data.attributes.documents.data
 
         const profileData = profileResponse.data.attributes
-        const { name, phone, address, zip_code } = profileData
-        setFormData({
-          address: address ? address : '',
-          email,
-          mobileNumber: phone,
-          pinCode: zip_code ? zip_code : '',
-          name
-        })
+        // const { name, phone, address, zip_code } = profileData
+        // setFormData({
+        //   address: address ? address : '',
+        //   email,
+        //   mobileNumber: phone,
+        //   pinCode: zip_code ? zip_code : '',
+        //   name
+        // })
       })
       .catch(e => console.error(e))
   }, [])
 
-  useEffect(() => {
-    if (localStorage) {
-      if (localStorage.getItem('userPhone')) {
-        const copiedFormData = structuredClone(formData)
-        const copiedBillingFormData = structuredClone(billingFormData)
+  // useEffect(() => {
+  //   if (localStorage) {
+  //     if (localStorage.getItem('userPhone')) {
+  //       const copiedFormData = structuredClone(formData)
+  //       const copiedBillingFormData = structuredClone(billingFormData)
 
-        copiedFormData.mobileNumber = localStorage.getItem('userPhone') as string
-        copiedBillingFormData.mobileNumber = localStorage.getItem('userPhone') as string
+  //       copiedFormData.mobileNumber = localStorage.getItem('userPhone') as string
+  //       copiedBillingFormData.mobileNumber = localStorage.getItem('userPhone') as string
 
-        setFormData(copiedFormData)
-        setBillingFormData(copiedBillingFormData)
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  //       setFormData(copiedFormData)
+  //       setBillingFormData(copiedBillingFormData)
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      if (localStorage.getItem('shippingAdress')) {
-        setFormData(JSON.parse(localStorage.getItem('shippingAdress') as string))
-      }
-      if (localStorage.getItem('billingAddress')) {
-        setBillingFormData(JSON.parse(localStorage.getItem('billingAddress') as string))
-      }
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (typeof window !== 'undefined') {
+  //     if (localStorage.getItem('shippingAdress')) {
+  //       setFormData(JSON.parse(localStorage.getItem('shippingAdress') as string))
+  //     }
+  //     if (localStorage.getItem('billingAddress')) {
+  //       setBillingFormData(JSON.parse(localStorage.getItem('billingAddress') as string))
+  //     }
+  //   }
+  // }, [])
 
-  useEffect(() => {
-    if (initRequest.data) {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('initResult', JSON.stringify(initRequest.data))
-      }
+  // useEffect(() => {
+  //   if (initRequest.data) {
+  //     if (typeof window !== 'undefined') {
+  //       localStorage.setItem('initResult', JSON.stringify(initRequest.data))
+  //     }
 
-      dispatch(responseDataActions.addInitResponse(initRequest.data))
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [initRequest.data])
+  //     dispatch(responseDataActions.addInitResponse(initRequest.data))
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [initRequest.data])
 
-  useEffect(() => {
-    const shippingAddressComplete = Object.values(formData).every(value => value.length > 0)
-    if (shippingAddressComplete && typeof window !== 'undefined') {
-      localStorage.setItem('shippingAdress', JSON.stringify(formData))
-    }
-  }, [formData])
+  // useEffect(() => {
+  //   const shippingAddressComplete = Object.values(formData).every(value => value.length > 0)
+  //   if (shippingAddressComplete && typeof window !== 'undefined') {
+  //     localStorage.setItem('shippingAdress', JSON.stringify(formData))
+  //   }
+  // }, [formData])
 
-  useEffect(() => {
-    const isBillingAddressComplete = Object.values(billingFormData).every(value => value.length > 0)
+  // useEffect(() => {
+  //   const isBillingAddressComplete = Object.values(billingFormData).every(value => value.length > 0)
 
-    if (isBillingAddressComplete && typeof window !== 'undefined') {
-      localStorage.setItem('billingAddress', JSON.stringify(billingFormData))
-    }
-    setIsBillingAddressSameAsShippingAddress(
-      areShippingAndBillingDetailsSame(isBillingAddressComplete, formData, billingFormData)
-    )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [billingFormData])
+  //   if (isBillingAddressComplete && typeof window !== 'undefined') {
+  //     localStorage.setItem('billingAddress', JSON.stringify(billingFormData))
+  //   }
+  //   setIsBillingAddressSameAsShippingAddress(
+  //     areShippingAndBillingDetailsSame(isBillingAddressComplete, formData, billingFormData)
+  //   )
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [billingFormData])
 
-  const formSubmitHandler = () => {
-    if (formData) {
-      // TODO :_ To check this again
+  // const formSubmitHandler = () => {
+  //   if (formData) {
+  //     // TODO :_ To check this again
 
-      // if (isBillingAddressSameAsShippingAddress) {
-      //   const copiedFormData = structuredClone(formData);
-      //   setBillingFormData(copiedFormData);
-      // }
+  //     // if (isBillingAddressSameAsShippingAddress) {
+  //     //   const copiedFormData = structuredClone(formData);
+  //     //   setBillingFormData(copiedFormData);
+  //     // }
 
-      const cartItemsPerBppPerProvider: DataPerBpp = getCartItemsPerBpp(cartItems as CartItemForRequest[])
+  //     const cartItemsPerBppPerProvider: DataPerBpp = getCartItemsPerBpp(cartItems as CartItemForRequest[])
 
-      const payLoadForInitRequest = getPayloadForInitRequest(
-        cartItemsPerBppPerProvider,
-        transactionId,
-        formData,
-        billingFormData
-      )
-      initRequest.fetchData(`${apiUrl}/client/v2/initialize_order`, 'POST', payLoadForInitRequest)
-    }
-  }
+  //     const payLoadForInitRequest = getPayloadForInitRequest(
+  //       cartItemsPerBppPerProvider,
+  //       transactionId,
+  //       formData,
+  //       billingFormData
+  //     )
+  //     initRequest.fetchData(`${apiUrl}/client/v2/initialize_order`, 'POST', payLoadForInitRequest)
+  //   }
+  // }
 
   if (initRequest.loading) {
     return <Loader loadingText={t['initializingOrderLoader']} />
@@ -226,13 +229,13 @@ const CheckoutPage = () => {
             <Text fontSize={'17px'}>{t.billing}</Text>
           </Flex>
           <DetailsCard>
-            <AddBillingButton
+            {/* <AddBillingButton
               imgFlag={!initRequest.data}
               billingFormData={formData}
               setBillingFormData={setFormData}
               addBillingdetailsBtnText={t.addBillingdetailsBtnText}
               billingFormSubmitHandler={formSubmitHandler}
-            />
+            /> */}
           </DetailsCard>
         </Box>
       ) : (

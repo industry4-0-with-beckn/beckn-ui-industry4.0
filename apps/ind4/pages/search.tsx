@@ -123,11 +123,14 @@ const Search = () => {
             authorName: 'Industry 4.0',
             rating: '5'
           },
-          location: {
-            code: provider.location[0].code,
-            name: provider.location[0].name,
-            gps: provider.location[0].gps
-          }
+          location: [
+            {
+              code: provider.location[0].city.code,
+              name: provider.location[0].city.name,
+
+              gps: provider.location[0].gps
+            }
+          ]
         }
       })
       localStorage.setItem('searchItems', JSON.stringify(allItems))

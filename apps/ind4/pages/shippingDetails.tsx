@@ -6,16 +6,10 @@ import Styles from '../components/signIn/SignIn.module.css'
 import { Box, Flex } from '@chakra-ui/react'
 import useRequest from '../hooks/useRequest'
 import { useRouter } from 'next/router'
+import { responseDataActions } from '../store/responseData-slice'
+import { useDispatch } from 'react-redux'
 
 import Button from '../components/button/Button'
-
-// export type ShippingFormData = {
-//   name: string
-//   mobileNumber: string
-//   email: string
-//   address: string
-//   pinCode: string
-// }
 
 const ShippingDetails = () => {
   const { t } = useLanguage()
@@ -24,15 +18,16 @@ const ShippingDetails = () => {
   const baseUrl = process.env.NEXT_PUBLIC_STRAPI_URL
   const { data, loading, error, fetchData } = useRequest()
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
+  const dispatch = useDispatch()
 
   // const initRequest = useRequest()
   const router = useRouter()
   const [itemId, setItemId] = useState(router.query?.iId || '')
   const [providerId, setProviderId] = useState(router.query?.pId || '')
   const [fulfillmentId, setFulfillmentId] = useState(router.query?.fId || '')
-  const [bppId, setbppId] = useState(router.query?.bppId || '')
-  const [bppUri, setbppUri] = useState(router.query?.bppUri || '')
-
+  const [bppId, setbppId] = useState(router.query?.bId || '')
+  const [bppUri, setbppUri] = useState(router.query?.bUri || '')
+  const [details, setDetails] = useState()
   const [formData, setFormData] = useState({
     name: 'e.g. Santosh Kumar',
     mobileNumber: '9876543210',
@@ -42,41 +37,12 @@ const ShippingDetails = () => {
     zipcode: '201016'
   })
 
-  // const [isBillingAddressSameAsShippingAddress, setIsBillingAddressSameAsShippingAddress] = useState(true)
-
-  // const [billingFormData, setBillingFormData] = useState<ShippingFormData>({
-  //   name: '',
-  //   mobileNumber: '',
-  //   email: '',
-  //   address: '',
-  //   pinCode: ''
-  // })
-
+  console.log('bppid', bppId)
   const handleInputChange = e => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
   }
 
-  //   useEffect(() => {
-  //     const shippingAddressComplete = Object.values(formData).every(value => value.length > 0)
-  //     if (shippingAddressComplete && typeof window !== 'undefined') {
-  //       localStorage.setItem('shippingAdress', JSON.stringify(formData))
-  //     }
-  //   }, [formData])
-
-  //   useEffect(() => {
-  //     const isBillingAddressComplete = Object.values(billingFormData).every(value => value.length > 0)
-
-  //     if (isBillingAddressComplete && typeof window !== 'undefined') {
-  //       localStorage.setItem('billingAddress', JSON.stringify(billingFormData))
-  //     }
-  //     setIsBillingAddressSameAsShippingAddress(
-  //       areShippingAndBillingDetailsSame(isBillingAddressComplete, formData, billingFormData)
-  //     )
-  //     // eslint-disable-next-line react-hooks/exhaustive-deps
-  //   }, [billingFormData])
-
-  // }
   const handleSubmit = e => {
     e.preventDefault()
     const initPayload = {
@@ -94,17 +60,22 @@ const ShippingDetails = () => {
       mobileNumber: formData.mobileNumber,
       shippingAddress: formData.shippingAddress,
       zipcode: formData.zipcode,
-      billingAddress: formData.billingAddress || formData.shippingAddress // Use shipping address if billing address is not provided
+      billingAddress: formData.billingAddress
     }
     const fetchDataForInit = () => fetchData(`${apiUrl}/init`, 'POST', initPayload)
     fetchDataForInit()
-
-    console.log('Form submitted with payload:', initPayload)
   }
-
-  // if (initRequest.loading) {
-  //   return <Loader loadingText={t['initializingOrderLoader']} />
-  // }
+  if (data) {
+    dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
+    const provider = data.initProv
+    const allDetails = {
+      context: {
+        bppId: bppId,
+        bppUri: bppUri
+      }
+    }
+    router.push(`/checkoutPage?pId=${providerId}&iId=${itemId}&fId=${fulfillmentId}&bppId=${bppId}&bppUri=${bppUri}`)
+  }
 
   return (
     <>
@@ -132,8 +103,6 @@ const ShippingDetails = () => {
               onChange={handleInputChange}
             />
             <label className={style.did_floating_label}>{'Mobile Number'}</label>
-            {/* <label className={style.did_floating_label}>{t.formEmail}</label>
-              {formErrors.email && <div className={style.error}>{formErrors.email}</div>} */}
           </div>
           <div className={style.did_floating_label_content}>
             <input
