@@ -7,9 +7,10 @@ import { Box, Flex } from '@chakra-ui/react'
 import useRequest from '../hooks/useRequest'
 import { useRouter } from 'next/router'
 import { responseDataActions } from '../store/responseData-slice'
-import { useDispatch } from 'react-redux'
-
+import { useDispatch, useSelector } from 'react-redux'
+import CheckoutPage from './checkoutPage'
 import Button from '../components/button/Button'
+import initDetailsActions from '../store/initdata-slice'
 
 const ShippingDetails = () => {
   const { t } = useLanguage()
@@ -19,8 +20,8 @@ const ShippingDetails = () => {
   const { data, loading, error, fetchData } = useRequest()
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   const dispatch = useDispatch()
-
   // const initRequest = useRequest()
+
   const router = useRouter()
   const [itemId, setItemId] = useState(router.query?.iId || '')
   const [providerId, setProviderId] = useState(router.query?.pId || '')
@@ -37,7 +38,6 @@ const ShippingDetails = () => {
     zipcode: '201016'
   })
 
-  console.log('bppid', bppId)
   const handleInputChange = e => {
     const { name, value } = e.target
     setFormData({ ...formData, [name]: value })
@@ -66,15 +66,121 @@ const ShippingDetails = () => {
     fetchDataForInit()
   }
   if (data) {
-    dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
-    const provider = data.initProv
+    // dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
+    const provider = data.initProv.provider
+    const items = data.initProv.items
+    const fulfillments = data.initProv.fulfillments
+    const billing = data.initProv.billing
+    const payments = data.initProv.payments
+    const breakup = data.initProv.quote.breakup
     const allDetails = {
       context: {
         bppId: bppId,
         bppUri: bppUri
-      }
+      },
+      provider: {
+        id: provider.id,
+        descriptor: {
+          name: provider.descriptor.name,
+          short_desc: provider.descriptor.short_desc,
+          long_desc: provider.descriptor.long_desc
+          // image: provider.descriptor.images.map((image: any) => image?.url),
+        }
+      },
+      items: [
+        {
+          id: items[0].id,
+          descriptor: {
+            name: items[0].descriptor.name
+          },
+          category_ids: [items[0].category_ids],
+          price: {
+            currency: items[0].price.currency,
+            value: items[0].price.value
+          }
+        }
+      ],
+      fulfillments: [
+        {
+          id: fulfillments[0].id,
+          customer: {
+            contact: {
+              email: fulfillments[0].customer.contact.email,
+              phone: fulfillments[0].customer.contact.mobileNumber
+            },
+            person: {
+              name: fulfillments[0].customer.person.name
+            }
+          },
+          stops: [
+            {
+              type: fulfillments[0]?.stops?.type,
+              location: {
+                gps: fulfillments[0]?.stops?.location?.gps,
+                address: fulfillments[0]?.stops?.location?.address
+              },
+              contact: {
+                phone: fulfillments[0]?.stops[0]?.contact?.phone
+              }
+            }
+          ],
+          tracking: fulfillments[0].tracking
+        }
+      ],
+      billing: {
+        name: billing.name,
+        address: billing.address,
+        state: {
+          name: billing.state.name
+        },
+        city: {
+          name: billing.city.name
+        },
+        email: billing.email,
+        phone: billing.phone
+      },
+      payments: [
+        {
+          collected_by: payments[0].collected_by,
+          params: {
+            amount: payments[0].params.amount,
+            currency: payments[0].params.currency,
+            bank_account_number: payments[0].params.bank_account_number,
+            bank_code: payments[0].params.bank_code,
+            bank_account_name: payments[0].params.bank_account_name
+          },
+          status: payments[0].status,
+          type: payments[0].type
+        }
+      ],
+      quote: {
+        breakup: [
+          {
+            price: {
+              currency: breakup[0].price.currency,
+              value: breakup[0].price.value
+            },
+            title: breakup?.title
+          },
+          {
+            price: {
+              currency: breakup[0].price.currency,
+              value: breakup[0].price.value
+            },
+            title: breakup[0].title
+          }
+        ],
+        price: {
+          currency: data.initProv.quote.price.currency,
+          value: data.initProv.quote.price.value
+        }
+      },
+      type: 'DEFAULT'
     }
-    router.push(`/checkoutPage?pId=${providerId}&iId=${itemId}&fId=${fulfillmentId}&bppId=${bppId}&bppUri=${bppUri}`)
+
+    dispatch(initDetailsActions(allDetails))
+
+    // router.push(`/checkoutPage?pId=${providerId}&iId=${itemId}&fId=${fulfillmentId}&bppId=${bppId}&bppUri=${bppUri}`)
   }
 
   return (
@@ -158,6 +264,7 @@ const ShippingDetails = () => {
         handleOnClick={handleSubmit}
         isDisabled={!formData}
       />
+      {/* <CheckoutPage initDetails={details}/> */}
     </>
   )
 }

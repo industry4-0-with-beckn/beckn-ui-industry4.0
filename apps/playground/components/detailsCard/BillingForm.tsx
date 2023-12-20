@@ -69,9 +69,9 @@ const BillingForm: React.FC<ShippingFormProps> = props => {
     }
   }
 
-  const isFormValid = Object.entries(props.billingFormData)
-    .filter(([key]) => key !== 'landmark')
-    .every(([_, value]) => value.trim() !== '')
+  // const isFormValid = Object.entries(props.billingFormData)
+  //   .filter(([key]) => key !== 'landmark')
+  //   .every(([_, value]) => value.trim() !== '')
 
   return (
     <>
