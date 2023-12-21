@@ -132,7 +132,7 @@ export interface initItem {
       person?: {
         name?: string
       }
-      stops: {
+      stops?: {
         type?: string
         location?: {
           gps?: string
@@ -141,12 +141,12 @@ export interface initItem {
         contact?: {
           phone?: string
         }
-      }
-      []
+      }[]
     }
 
     tracking?: string
   }
+
   billing?: {
     name?: string
     address?: string
@@ -159,19 +159,20 @@ export interface initItem {
     email?: string
     phone?: string
   }
+
   payments?: {
     collected_by?: string
     params?: {
       amount?: string
-      currency?: pstring
+      currency?: string
       bank_account_number?: string
       bank_code?: string
       bank_account_name?: string
     }
     status?: string
     type?: string
-  }
-  []
+  }[]
+
   quote?: {
     breakup?: {
       price?: {
@@ -187,23 +188,149 @@ export interface initItem {
   }
 }
 
-// export interface initItem {
-
-//     quote?: {
-//       breakup?: {
-//         price?: {
-//           currency?: string;
-//           value?: string;
-//         };
-//         title?: string;
-//       }[];
-//       price?: {
-//         currency?: string;
-//         value?: string;
-//       };
-//     };
-//   }
-
 export interface IInititemRootState {
   initDetail: initItem
 }
+
+export interface ConfirmItem extends initItem {
+  cancellation_terms?: {
+    cancellation_fee: {
+      amount: {
+        currency: string
+        value: string
+      }
+    }
+  }[]
+}
+
+export interface ConfirmRootState {
+  confirmDetail: ConfirmItem
+}
+
+/*
+
+ const confirmProv = {
+    order:{
+      id: input?.message?.order?.id,
+      provider: {
+        id: provider?.id,
+        descriptor:{
+        name: provider?.descriptor?.name,
+        short_desc: provider?.descriptor?.short_desc,
+        long_desc: provider?.descriptor?.long_desc,
+        image: provider?.descriptor?.images?.map((image: any) => image?.url),
+        },
+      },
+        items:[
+          {
+            id: item?.id,
+            descriptor:{
+              name: item?.descriptor?.name,
+            },
+            category_ids: [
+              item?.category_ids,
+            ],
+            price: {
+              currency: item?.price?.currency,
+              value: item?.price?.value,
+          }
+          },
+        ], 
+        fulfillments: [{
+          id: fulfillment?.id,
+          state: {
+            descriptor: {
+                code: fulfillment?.state?.descriptor?.code,
+                short_desc:  fulfillment?.state?.descriptor?.short_desc
+            }
+        },
+              customer:{
+                contact:{
+                  email: fulfillment?.customer?.contact?.email,
+                  phone: fulfillment?.customer?.contact?.mobileNumber,
+                },
+                person: {
+                  name: fulfillment?.customer?.person?.name,
+                }
+              },
+              stops:[
+                {
+                  type: fulfillment?.stops[0]?.type,
+                  location:{
+                    gps:fulfillment?.stops[0]?.location?.gps,
+                    address: fulfillment?.stops[0]?.location?.address,
+                  },
+                  contact: {
+                    phone: fulfillment?.stops[0]?.contact?.phone
+                  }
+                },
+              ],
+              tracking: fulfillment?.tracking,
+          
+        }],
+        billing:{
+          name: input?.message?.order?.billing?.name,
+          address:input?.message?.order?.billing?.address,
+          state:{
+            name: input?.message?.order?.billing?.state?.name,
+          },
+          city:{
+            name:input?.message?.order?.billing?.city?.name,
+          },
+          email: input?.message?.order?.billing?.email,
+          phone: input?.message?.order?.billing?.phone
+        },
+        payments: [
+          {
+              collected_by: payments?.collected_by,
+              params: {
+                  amount: payments?.params?.amount,
+                  currency: payments?.params?.currency,
+                  bank_account_number: payments?.params?.bank_account_number,
+                  bank_code: payments?.params?.params?.bank_code,
+                  bank_account_name: payments?.params?.bank_account_name
+              },
+              status: payments?.status,
+              type: payments?.type,
+              transaction_id: payments?.transaction_id
+          }
+      ],
+      quote: {
+          breakup: [
+              {
+                  price: {
+                      currency: breakup?.price?.currency,
+                      value: breakup?.price?.value,
+                  },
+                  title: breakup?.title
+              },
+              {
+                price: {
+                  currency: breakup?.price?.currency,
+                  value: breakup?.price?.value,
+              },
+                title: breakup?.title
+              },
+              
+          ],
+          price: {
+              currency: input?.message?.order?.quote?.price?.currency,
+              value: input?.message?.order?.quote?.price?.value
+          }
+      },
+      cancellation_terms:[
+        {
+          cancellation_fee: {
+            amount: {
+                currency: cancellation?.cancellation_fee?.amount?.currency,
+                value: cancellation?.cancellation_fee?.amount?.value,
+            },
+        } , 
+        }
+      ]
+      
+      type: "DEFAULT"
+    }
+   
+  };
+*/

@@ -29,7 +29,7 @@ const ShippingDetails = () => {
   const [bppId, setbppId] = useState(router.query?.bId || '')
   const [bppUri, setbppUri] = useState(router.query?.bUri || '')
   const [formData, setFormData] = useState({
-    name: 'e.g. Santosh Kumar',
+    name: 'Santosh Kumar',
     mobileNumber: '9876543210',
     email: 'santosh.k@gmail.com',
     shippingAddress: '151-E, Janpath Road, New Delhi',
@@ -177,28 +177,8 @@ const ShippingDetails = () => {
       type: 'DEFAULT'
     }
 
-    // const allDetails: initItem = {
-    //   quote: {
-    //     breakup: [
-    //       {
-    //         price: {
-    //           currency: breakup[0].price.currency,
-    //           value: breakup[0].price.value
-    //         },
-    //         title: breakup?.title
-    //       },
-
-    //     ],
-    //     price: {
-    //       currency: data.initProv.quote.price.currency,
-    //       value: data.initProv.quote.price.value
-    //     }
-    //   },
-    // }
-
     dispatch(setInitItem(allDetails))
 
-    // router.push(`/checkoutPage?pId=${providerId}&iId=${itemId}&fId=${fulfillmentId}&bppId=${bppId}&bppUri=${bppUri}`)
     router.push(`/checkoutPage?`)
   }
 

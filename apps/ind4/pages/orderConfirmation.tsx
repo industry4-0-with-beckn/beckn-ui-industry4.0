@@ -129,7 +129,7 @@ const OrderConfirmation = () => {
   }
 
   const learningHistoryHandler = (): void => {
-    router.push('/myLearningOrderHistory')
+    router.push('/homePage')
   }
 
   return (
@@ -143,7 +143,6 @@ const OrderConfirmation = () => {
             <Stack>
               <Text textAlign={'center'} marginTop={'8px'} marginBottom={'40px'} fontSize={'15px'} fontWeight="400">
                 {t.confirmMessage1} <br />
-                {t.confirmMessage2}
               </Text>
             </Stack>
           </>
@@ -158,7 +157,7 @@ const OrderConfirmation = () => {
           handleOnClick={handleViewCource}
         />
         <Button
-          buttonText={t.myLearnings}
+          buttonText={t.backToHome}
           background={'transparent'}
           color={'rgba(var(--color-primary))'}
           isDisabled={false}

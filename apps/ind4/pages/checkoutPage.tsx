@@ -33,8 +33,9 @@ const CheckoutPage = () => {
   const basePrice = initItem?.quote?.breakup[0].price?.value ?? '0.0'
   const difference = totalValue - basePrice
   const id = initItem?.id
-  const description = initItem?.context?.bppId
-  console.log(id)
+  const pname = initItem?.provider?.descriptor?.name ?? 'no value'
+  const pdesc = initItem?.provider?.descriptor?.short_desc
+  const shippingAddress = initItem?.billing?.address
   // const initItem = useSelector((state: IInititemRootState)=> state.initDetail.id)
   return (
     <Box className="hideScroll" maxH={'calc(100vh - 100px)'} overflowY="scroll">
@@ -44,20 +45,29 @@ const CheckoutPage = () => {
         <Box pb={'10px'}>
           <Text fontSize={'17px'}>{t.overview}</Text>
         </Box>
-        {/* {cartItems.map((item) => ( */}
-        <DetailsCard>
+
+        {/* <DetailsCard>
           <ItemDetails title={id} description={description} quantity={'Quote Details'} price={basePrice} />
-        </DetailsCard>
-        {/* ))} */}
+        </DetailsCard> */}
         <DetailsCard>
-          {/* {cartItems.map(item => {
-            return ( */}
-          <>
-            <ItemDetails title={id} description={description} quantity={'Quote Details'} price={basePrice} />
-          </>
-          {/* )
-          })} */}
+          {/* {initItem?.descriptor() => { */}
+          {/* return ( */}
+
+          <ItemDetails
+            title={`${pname}`}
+            provider={`${pdesc}`}
+            quantity={'2'}
+            price={`${basePrice}`}
+            shipping={shippingAddress}
+          />
+
+          {/* ) */}
+          {/* }} */}
         </DetailsCard>
+
+        {/* ------- */}
+
+        {/* --------- */}
       </Box>
 
       {/* <Box>

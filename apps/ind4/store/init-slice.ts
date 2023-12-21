@@ -1,6 +1,6 @@
 // initItemSlice.ts
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { IInititemRootState } from '../lib/types/products'
+import { IInititemRootState, initItem } from '../lib/types/products'
 interface InitItemState {
   initDetail: initItem | null
 }
