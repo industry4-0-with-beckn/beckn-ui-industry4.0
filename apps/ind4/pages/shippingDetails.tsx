@@ -10,7 +10,8 @@ import { responseDataActions } from '../store/responseData-slice'
 import { useDispatch, useSelector } from 'react-redux'
 import CheckoutPage from './checkoutPage'
 import Button from '../components/button/Button'
-import initDetailsActions from '../store/initdata-slice'
+import { setInitItem } from '../store/init-slice'
+import { initItem } from '../lib/types/products'
 
 const ShippingDetails = () => {
   const { t } = useLanguage()
@@ -20,7 +21,6 @@ const ShippingDetails = () => {
   const { data, loading, error, fetchData } = useRequest()
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   const dispatch = useDispatch()
-  // const initRequest = useRequest()
 
   const router = useRouter()
   const [itemId, setItemId] = useState(router.query?.iId || '')
@@ -28,7 +28,6 @@ const ShippingDetails = () => {
   const [fulfillmentId, setFulfillmentId] = useState(router.query?.fId || '')
   const [bppId, setbppId] = useState(router.query?.bId || '')
   const [bppUri, setbppUri] = useState(router.query?.bUri || '')
-  const [details, setDetails] = useState()
   const [formData, setFormData] = useState({
     name: 'e.g. Santosh Kumar',
     mobileNumber: '9876543210',
@@ -73,7 +72,7 @@ const ShippingDetails = () => {
     const billing = data.initProv.billing
     const payments = data.initProv.payments
     const breakup = data.initProv.quote.breakup
-    const allDetails = {
+    const allDetails: initItem = {
       context: {
         bppId: bppId,
         bppUri: bppUri
@@ -178,9 +177,29 @@ const ShippingDetails = () => {
       type: 'DEFAULT'
     }
 
-    dispatch(initDetailsActions(allDetails))
+    // const allDetails: initItem = {
+    //   quote: {
+    //     breakup: [
+    //       {
+    //         price: {
+    //           currency: breakup[0].price.currency,
+    //           value: breakup[0].price.value
+    //         },
+    //         title: breakup?.title
+    //       },
+
+    //     ],
+    //     price: {
+    //       currency: data.initProv.quote.price.currency,
+    //       value: data.initProv.quote.price.value
+    //     }
+    //   },
+    // }
+
+    dispatch(setInitItem(allDetails))
 
     // router.push(`/checkoutPage?pId=${providerId}&iId=${itemId}&fId=${fulfillmentId}&bppId=${bppId}&bppUri=${bppUri}`)
+    router.push(`/checkoutPage?`)
   }
 
   return (

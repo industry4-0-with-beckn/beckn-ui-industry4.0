@@ -12,7 +12,8 @@ import settingBoxReducer from './settingBox-slice'
 import scholarshipCartReducer from './scholarshipCart-slice'
 import favoriteReducer from './favorite-slice'
 import responseDataReducer from './responseData-slice'
-import initDetailsSlice from './initData-slice'
+import initItemReducer from './init-slice'
+
 const store = configureStore({
   reducer: {
     specialOfferProductsList: specialOfferProductsReducer,
@@ -31,7 +32,7 @@ const store = configureStore({
     customerDetails: responseDataReducer,
     initResponse: responseDataReducer,
     scholarshipCart: scholarshipCartReducer,
-    initData: initDetailsSlice
+    initItem: initItemReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({

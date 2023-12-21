@@ -296,6 +296,7 @@ const en: { [key: string]: string } = {
   orderConfirm: 'Order Confirmed!',
   confirmOrderMessage: 'Thank you! Our delivery agent will deliver your order',
   currencySymbol: '₹',
+  eurosymbol: '€',
   saveShippingDetails: 'Save Shipping Details',
   saveBillingDetails: 'Save Billing Details',
   addBillingDetails: 'Add Billing Details',

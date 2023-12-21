@@ -106,24 +106,21 @@ export interface RetailItem {
 }
 
 export interface initItem {
-  extended_attributes?: any
   context?: {
     bppId?: string
     bppUri?: string
   }
   id: string
-  descriptor: {
-    images: string[]
-    name: string
-    short_desc: string
-    long_desc: string
+  descriptor?: {
+    name?: string
+    short_desc?: string
+    long_desc?: string
   }
   rating?: string
-  items?: [
-    {
-      id?: string
-    }
-  ]
+  items?: {
+    id?: string
+  }[]
+
   fulfillments?: {
     id?: string
 
@@ -135,18 +132,17 @@ export interface initItem {
       person?: {
         name?: string
       }
-      stops: [
-        {
-          type?: string
-          location?: {
-            gps?: string
-            address?: string
-          }
-          contact?: {
-            phone?: string
-          }
+      stops: {
+        type?: string
+        location?: {
+          gps?: string
+          address?: string
         }
-      ]
+        contact?: {
+          phone?: string
+        }
+      }
+      []
     }
 
     tracking?: string
@@ -163,40 +159,51 @@ export interface initItem {
     email?: string
     phone?: string
   }
-  payments?: [
-    {
-      collected_by?: string
-      params?: {
-        amount?: string
-        currency?: pstring
-        bank_account_number?: string
-        bank_code?: string
-        bank_account_name?: string
-      }
-      status?: string
-      type?: string
+  payments?: {
+    collected_by?: string
+    params?: {
+      amount?: string
+      currency?: pstring
+      bank_account_number?: string
+      bank_code?: string
+      bank_account_name?: string
     }
-  ]
+    status?: string
+    type?: string
+  }
+  []
   quote?: {
-    breakup?: [
-      {
-        price?: {
-          currency?: string
-          value?: string
-        }
-        title?: string
-      },
-      {
-        price?: {
-          currency?: string
-          value?: string
-        }
-        title?: string
+    breakup?: {
+      price?: {
+        currency?: string
+        value?: string
       }
-    ]
+      title?: string
+    }[]
     price?: {
       currency?: string
       value?: string
     }
   }
+}
+
+// export interface initItem {
+
+//     quote?: {
+//       breakup?: {
+//         price?: {
+//           currency?: string;
+//           value?: string;
+//         };
+//         title?: string;
+//       }[];
+//       price?: {
+//         currency?: string;
+//         value?: string;
+//       };
+//     };
+//   }
+
+export interface IInititemRootState {
+  initDetail: initItem
 }

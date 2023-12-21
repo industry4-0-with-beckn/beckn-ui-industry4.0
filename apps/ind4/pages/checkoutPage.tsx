@@ -15,26 +15,27 @@ import Loader from '../components/loader/Loader'
 // import AddBillingButton from '../components/detailsCard/AddBillingButton'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-import { initItem } from '../lib/types/products'
-import IInititemRootState from '../lib/types/productList'
+import { selectInitItem } from '../store/init-slice'
+import { AppHeader } from '../components/appHeader/AppHeader'
 
-interface Props {
-  initDetails: initItem
-}
 // const initDetails = location.state?.initDetails
-const CheckoutPage: React.FC<Props> = ({ initDetails }) => {
-  console.log('dank', initDetails)
+const CheckoutPage = () => {
   const router = useRouter()
   // const initRequest = useRequest()
-  const dispatch = useDispatch()
   const { t, locale } = useLanguage()
+  const initItem = useSelector(selectInitItem)
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
   const strapiUrl = process.env.NEXT_PUBLIC_STRAPI_URL
   const cartItems = useSelector((state: ICartRootState) => state.cart.items)
   const transactionId = useSelector((state: { transactionId: TransactionIdRootState }) => state.transactionId)
   const bearerToken = Cookies.get('authToken')
-  const initDetails = useSelector((state: IInititemRootState) => state.initData.initDetail)
-
+  const totalValue = initItem?.quote?.price?.value ?? '0.0'
+  const basePrice = initItem?.quote?.breakup[0].price?.value ?? '0.0'
+  const difference = totalValue - basePrice
+  const id = initItem?.id
+  const description = initItem?.context?.bppId
+  console.log(id)
+  // const initItem = useSelector((state: IInititemRootState)=> state.initDetail.id)
   return (
     <Box className="hideScroll" maxH={'calc(100vh - 100px)'} overflowY="scroll">
       {/* <AppHeader appHeaderText={t.checkout} /> */}
@@ -45,43 +46,27 @@ const CheckoutPage: React.FC<Props> = ({ initDetails }) => {
         </Box>
         {/* {cartItems.map((item) => ( */}
         <DetailsCard>
-          {initDetails && initDetails.descriptor ? (
-            <ItemDetails
-              title={initDetails.descriptor.name}
-              description={initDetails.descriptor.name}
-              quantity={initDetails.descriptor.name}
-              price={`${t.currencySymbol}${initDetails.quote.price.currency}`}
-            />
-          ) : (
-            <p>Loading or not available</p>
-          )}
+          <ItemDetails title={id} description={description} quantity={'Quote Details'} price={basePrice} />
         </DetailsCard>
         {/* ))} */}
         <DetailsCard>
           {/* {cartItems.map(item => {
             return ( */}
           <>
-            <ItemDetails
-            // title={item.descriptor.name}
-            // provider={(item as any).bppName}
-            // quantity={item.quantity}
-            // price={item.totalPrice}
-            />
+            <ItemDetails title={id} description={description} quantity={'Quote Details'} price={basePrice} />
           </>
           {/* )
           })} */}
         </DetailsCard>
       </Box>
-      {/* end item details */}
-      {/* start shipping detals */}
-      {/* {!isInitResultPresent() ? ( */}
-      <Box>
+
+      {/* <Box>
         <Flex pb={'10px'} mt={'20px'} justifyContent={'space-between'}>
           <Text fontSize={'17px'}>{t.billing}</Text>
         </Flex>
         <DetailsCard></DetailsCard>
-      </Box>
-      {/* ) : ( */}
+      </Box> */}
+
       <Box>
         <Flex pb={'10px'} mt={'20px'} justifyContent={'space-between'}>
           {/* <Text fontSize={'17px'}>{t.billing}</Text> */}
@@ -101,41 +86,19 @@ const CheckoutPage: React.FC<Props> = ({ initDetails }) => {
             number={formData.mobileNumber}
           /> */}
       </Box>
-      {/* )} */}
-      {/* end shipping detals */}
-      {scholarshipTitle.length !== 0 && (
-        <Box>
-          <Flex pb={'10px'} mt={'20px'} justifyContent={'space-between'}>
-            <Text fontSize={'17px'}>{t.scholarship}</Text>
-          </Flex>
 
-          <DetailsCard>
-            <Flex alignItems={'center'}>
-              <Image alt="shippingBtnImage" src={addShippingBtn} />
-              <Text ml={'8px'}>
-                <span style={{ fontWeight: 'bold' }}>
-                  ‘{scholarshipId}-{scholarshipTitle}’
-                </span>
-              </Text>
-            </Flex>
-            <Text ml={'35px'}>{t.scholarshipApplied}</Text>
-          </DetailsCard>
-        </Box>
-      )}
-      {/* start payment details */}
-      {/* {initRequest.data && ( */}
       <Box>
         <Flex pb={'10px'} mt={'20px'} justifyContent={'space-between'}>
-          <Text fontSize={'17px'}>{t.paymentText}</Text>
+          <Text fontSize={'17px'}>{'Billing Details'}</Text>
         </Flex>
         <DetailsCard>
           <PaymentDetails
-          // subtotalText={'Sub'}
-          // subtotalValue={`${t.currencySymbol} ${getSubTotalAndDeliveryCharges(initRequest.data).subTotal}`}
-          // deliveryChargesText={t.scholaarshipApplied}
-          // deliveryChargesValue={`- ${t.currencySymbol} ${getSubTotalAndDeliveryCharges(initRequest.data).subTotal}`}
-          // totalText={t.totalText}
-          // totalValue={'0.00'}
+            subtotalText={'Base Price'}
+            subtotalValue={`${t.eurosymbol} ${basePrice}`}
+            deliveryChargesText={'Shipping Charges'}
+            deliveryChargesValue={`${t.eurosymbol} ${difference}`}
+            totalText={t.totalText}
+            totalValue={totalValue}
           />
         </DetailsCard>
       </Box>

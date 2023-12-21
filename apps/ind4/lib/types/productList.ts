@@ -8,6 +8,10 @@ export interface IProductListRootState {
   sortedProductsList: IProductList
 }
 
-export interface IInititemRootState {
-  initDetail: any
-}
+// export interface IInitItems {
+//   item: initItem | any
+// }
+
+// export interface IInititemRootState {
+//   initDetail: IInitItems
+// }
