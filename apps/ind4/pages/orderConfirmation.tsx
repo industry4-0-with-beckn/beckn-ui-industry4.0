@@ -30,16 +30,14 @@ const OrderConfirmation = () => {
     orderId: confirmItem?.order.id
   }
   // const orderDetailHandler = (): void =>{
-  const orderDetailHandler = async (): Promise<void> => {
-    await fetchData(`${apiUrl}/track`, 'POST', trackPayload)
+  const orderDetailHandler = () => {
+    // fetchData(`${apiUrl}/track`, 'POST', trackPayload)
 
-    fetchData(`${apiUrl}/track`, 'POST', trackPayload)
-
-    if (data) {
-      const url = data.trackUrl
-      router.push(`/orderDetails?`)
-      localStorage.setItem('trackurl', JSON.stringify(url))
-    }
+    // if (data) {
+    //   const url = data.trackUrl
+    router.push(`/orderDetails?`)
+    //     localStorage.setItem('trackurl', JSON.stringify(url))
+    //   }
   }
   const homeHandler = (): void => {
     router.push('/homePage?')

@@ -2,15 +2,6 @@ import { Box, CardBody, Divider, Flex, Text, Image, Card, useDisclosure, Stack }
 import React, { useEffect, useState } from 'react'
 import Accordion from '../components/accordion/Accordion'
 import { useLanguage } from '../hooks/useLanguage'
-import { ResponseModel } from '../lib/types/responseModel'
-import {
-  getConfirmMetaDataForBpp,
-  getOrderPlacementTimeline,
-  getPayloadForStatusRequest,
-  getPayloadForTrackRequest
-} from '../utilities/confirm-utils'
-import { getDataPerBpp } from '../utilities/orderDetails-utils'
-import { getSubTotalAndDeliveryChargesForOrder } from '../utilities/orderHistory-utils'
 import TrackIcon from '../public/images/TrackIcon.svg'
 import ViewMoreOrderModal from '../components/orderDetails/ViewMoreOrderModal'
 import { useSelector } from 'react-redux'
@@ -59,10 +50,24 @@ const OrderDetails = () => {
     statusRequest.fetchData(`${apiUrl}/status`, 'POST', statusPayload)
     if (data) {
       // setOrderId(data.statusProv.order.id)
-      setUpdate(data.statusProv.order.fulfillments[0].state.descriptor.short_desc)
-      setOrderedAt(data.statusProv.order.fulfillments[0].state.updated_at)
+      setUpdate(data.statusProv.order.fulfillments.state.descriptor.short_desc)
+      setOrderedAt(data.statusProv.order.fulfillments.state.updated_at)
     }
   }
+
+  // useEffect(() => {
+  //   if (statusRequest.data) {
+  //     setUpdate(statusRequest.data?.statusProv?.order?.fulfillments?.[0].state?.descriptor?.short_desc)
+
+  //     setStatusResponse(update)
+  //     if (update === 'Completed') {
+  //       setAllOrderDelivered(true)
+  //     }
+  //   }
+  // }, [])
+
+  // console.log("status",statusResponse[0])
+  let prevStatus = ''
   useEffect(() => {
     const intervalId = setInterval(() => {
       if (requestsSent < requestsCount) {
@@ -75,7 +80,6 @@ const OrderDetails = () => {
 
         requestsSent++
       } else {
-        // If 10 requests have been sent, terminate the interval
         clearInterval(intervalId)
       }
     }, 6000)
@@ -83,28 +87,14 @@ const OrderDetails = () => {
     return () => {
       clearInterval(intervalId)
     }
-
-    // localStorage.setItem('statusData', JSON.stringify(update))
-    // localStorage.setItem('messageId', JSON.stringify(orderId))
   }, [])
-
-  useEffect(() => {
-    if (statusRequest.data) {
-      setUpdate(statusRequest.data?.statusProv?.order?.fulfillments?.[0].state?.descriptor?.short_desc)
-
-      setStatusResponse(update as any)
-      if (update === 'Completed') {
-        setAllOrderDelivered(true)
-      }
-    }
-  }, [])
-
-  // console.log("status",statusResponse[0])
 
   const handleTrack = () => {
-    const url = localStorage.getItem('trackurl')
-
-    window.open(url)
+    fetchData(`${apiUrl}/track`, 'POST', statusPayload)
+    if (data) {
+      const url = data.trackUrl
+      window.open(url)
+    }
   }
 
   return (
@@ -170,15 +160,17 @@ const OrderDetails = () => {
                 </Text>
               </Flex>
 
-              {statusResponse[0] === 'Completed' ? (
-                <Text key={index} fontSize={'12px'} fontWeight="600" color={'#5EC401'}>
-                  Completed
-                </Text>
-              ) : (
-                <Text fontSize={'12px'} fontWeight="600" color={'#FDC025'}>
-                  In Progress
-                </Text>
-              )}
+              {statusResponse.map((status: any, index: number) => (
+                <div>
+                  {status === 'Completed' ? (
+                    <Text key={index} fontSize={'12px'} fontWeight="600" color={'#5EC401'}>
+                      {status}
+                    </Text>
+                  ) : (
+                    'no val'
+                  )}
+                </div>
+              ))}
             </Flex>
           </Box>
         }
@@ -197,19 +189,22 @@ const OrderDetails = () => {
               22st Dec 2023, 12:11pm
             </Text>
           </Box>
-
-          {status === 'In Progress' ? (
-            <Box
-              key={index}
-              fontSize={'15px'}
-              color={'rgba(var(--color-primary))'}
-              pt="10px"
-              pl="28px"
-              onClick={handleTrack}
-            >
-              {t.viewCourse}
-            </Box>
-          ) : null}
+          {statusResponse.map((status: any, index: number) => (
+            <div key={index}>
+              {status === 'In Progress' ? (
+                <Box
+                  key={index}
+                  fontSize={'15px'}
+                  color={'rgba(var(--color-primary))'}
+                  pt="10px"
+                  pl="28px"
+                  onClick={handleTrack}
+                >
+                  {t.viewCourse}
+                </Box>
+              ) : null}
+            </div>
+          ))}
         </CardBody>
       </Accordion>
     </Box>
