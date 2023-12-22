@@ -20,6 +20,7 @@ export interface ResponseModel {
   message: any
   serviceProviders?: any
   selectProviders?: any
+  statusProv?: any
   // Hacky fix
   name: string
 }

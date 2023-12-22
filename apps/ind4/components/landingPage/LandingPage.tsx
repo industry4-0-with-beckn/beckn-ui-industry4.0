@@ -23,17 +23,6 @@ const LandingPage: React.FC = () => {
     Router.push(`/search?searchTerm=${searchTerm}&rating=1&distance=0.0`)
   }
 
-  //filterlogic
-  // const navigateToFilterResults = () => {
-  //   const optionTags = localStorage.getItem('optionTags')
-
-  //   const { rating, distance } = JSON.parse(optionTags)
-
-  //   localStorage.setItem('optionTags', JSON.stringify({ name: searchTerm, rating: rating, distance: distance }))
-
-  //   Router.push(`/search?searchTerm=${searchTerm}&rating=${rating}&distance=${distance}`)
-  // }
-
   const handleClick = (type: string) => {
     setActiveCard(type)
   }

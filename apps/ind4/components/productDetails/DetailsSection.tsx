@@ -42,6 +42,7 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
   }
 
   const fetchDataForSelect = () => fetchData(`${apiUrl}/select`, 'POST', selectPayload)
+
   useEffect(() => {
     if (data) {
       // dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
@@ -50,21 +51,6 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
       const providerId = data.selectProvider.provider.id
       const itemId = data.selectProvider.items[0].id
       const fulfillment = data.selectProvider.fulfillments[0].id
-      // onSelectData({ url: selectedUrl, providerId: providerId, itemId: itemId, fulfillmentId = fulfillment})
-
-      // let providers = data.selectProviders.provider() =>{
-      // return {
-      //     providers: {
-      //       id: provider.id,
-      //     },
-      //     descriptor: {
-      //       name: provider.name,
-      //       long_desc: provider.long_desc,
-      //       images: provider.image,
-      //     },
-      //     formUrl: items.xinput.form.url
-      //   }
-      // }
 
       localStorage.setItem('selectUrl', JSON.stringify(selectedUrl))
       Router.push(
@@ -72,6 +58,7 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
       )
       localStorage.setItem('selectUrl', JSON.stringify(selectedUrl))
     }
+
     // })
   }, [data])
 
@@ -134,13 +121,12 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
           ></div>
         </div>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col pt-4">
         <Button
           background={'rgba(var(--color-primary))'}
           color={'rgba(var(--text-color))'}
           isDisabled={false}
           onClick={fetchDataForSelect}
-
           // onChange={urlNew}
         >
           Book now

@@ -52,24 +52,25 @@ const ViewMoreOrderModal: React.FC<ViewMoreOrderModalProps> = props => {
           </Box>
 
           <ModalBody padding={'15px 20px'}>
-            {props.items.map((item: any) => {
-              return (
-                <Box>
-                  <Box>
-                    <Text pb={'8px'}>{item.descriptor.name}</Text>
-                  </Box>
-                  <Text
-                    fontSize={'15px'}
-                    color={'rgba(var(--color-primary))'}
-                    pb="25px"
-                    cursor={'pointer'}
-                    onClick={() => Router.push('/myScholarship')}
-                  >
-                    {t.viewCourse}
-                  </Text>
-                </Box>
-              )
-            })}
+            {/* {props.fulfillments.map((item: any) => { */}
+            {/* return ( */}
+            <Box>
+              <Box>
+                <Text pb={'8px'}>{props.code}</Text>
+              </Box>
+              <Text
+                fontSize={'15px'}
+                color={'rgba(var(--color-primary))'}
+                pb="25px"
+                cursor={'pointer'}
+                onClick={() => Router.push('/myScholarship')}
+              >
+                {t.viewCourse}
+              </Text>
+            </Box>
+            {/* )
+            }) */}
+            {/* } */}
 
             <ButtonComp
               buttonText={'Close'}

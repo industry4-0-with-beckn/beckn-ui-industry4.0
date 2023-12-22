@@ -105,7 +105,7 @@ const CheckoutPage = () => {
           <PaymentDetails
             subtotalText={'Base Price'}
             subtotalValue={`${t.eurosymbol} ${basePrice}`}
-            deliveryChargesText={'Shipping Charges'}
+            deliveryChargesText={'Tax'}
             deliveryChargesValue={`${t.eurosymbol} ${difference}`}
             totalText={t.totalText}
             totalValue={totalValue}

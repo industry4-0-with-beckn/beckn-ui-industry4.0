@@ -9,7 +9,9 @@ import { useLanguage } from '../hooks/useLanguage'
 import creditCardImg from '../public/images/creditCardImg.svg'
 import { cartAction } from '../store/cart-slice'
 import { selectInitItem } from '../store/init-slice'
-
+import { setConfirmItem } from '../store/confirm-slice'
+import { ConfirmItem } from '../lib/types/products'
+import Loader from '../components/loader/Loader'
 function PaymentMode() {
   const [checked, setChecked] = useState(false)
   const { data, loading, error, fetchData } = useRequest()
@@ -53,132 +55,139 @@ function PaymentMode() {
   }
   const fetchDataForConfirm = () => fetchData(`${apiUrl}/confirm`, 'POST', confirmPayload)
   if (data) {
-    // const provider = data.confirmProv.provider
-    // const items = data.confirmProv.items
-    // const fulfillments = data.confirmProv.fulfillments
-    // const billing = data.confirmProv.billing
-    // const payments = data.confirmProv.payments
-    // const breakup = data.confirmProv.quote.breakup
-    // const allDetails: initItem = {
-    //   context: {
-    //     bppId: bppId,
-    //     bppUri: bppUri
-    //   },
-    //   provider: {
-    //     id: provider.id,
-    //     descriptor: {
-    //       name: provider.descriptor.name,
-    //       short_desc: provider.descriptor.short_desc,
-    //       long_desc: provider.descriptor.long_desc
-    //       // image: provider.descriptor.images.map((image: any) => image?.url),
-    //     }
-    //   },
-    //   items: [
-    //     {
-    //       id: items[0].id,
-    //       descriptor: {
-    //         name: items[0].descriptor.name
-    //       },
-    //       category_ids: [items[0].category_ids],
-    //       price: {
-    //         currency: items[0].price.currency,
-    //         value: items[0].price.value
-    //       }
-    //     }
-    //   ],
-    //   fulfillments: [
-    //     {
-    //       id: fulfillments[0].id,
-    //       customer: {
-    //         contact: {
-    //           email: fulfillments[0].customer.contact.email,
-    //           phone: fulfillments[0].customer.contact.mobileNumber
-    //         },
-    //         person: {
-    //           name: fulfillments[0].customer.person.name
-    //         }
-    //       },
-    //       stops: [
-    //         {
-    //           type: fulfillments[0]?.stops?.type,
-    //           location: {
-    //             gps: fulfillments[0]?.stops?.location?.gps,
-    //             address: fulfillments[0]?.stops?.location?.address
-    //           },
-    //           contact: {
-    //             phone: fulfillments[0]?.stops[0]?.contact?.phone
-    //           }
-    //         }
-    //       ],
-    //       tracking: fulfillments[0].tracking
-    //     }
-    //   ],
-    //   billing: {
-    //     name: billing.name,
-    //     address: billing.address,
-    //     state: {
-    //       name: billing.state.name
-    //     },
-    //     city: {
-    //       name: billing.city.name
-    //     },
-    //     email: billing.email,
-    //     phone: billing.phone
-    //   },
-    //   payments: [
-    //     {
-    //       collected_by: payments[0].collected_by,
-    //       params: {
-    //         amount: payments[0].params.amount,
-    //         currency: payments[0].params.currency,
-    //         bank_account_number: payments[0].params.bank_account_number,
-    //         bank_code: payments[0].params.bank_code,
-    //         bank_account_name: payments[0].params.bank_account_name
-    //       },
-    //       status: payments[0].status,
-    //       type: payments[0].type
-    //     }
-    //   ],
-    //   quote: {
-    //     breakup: [
-    //       {
-    //         price: {
-    //           currency: breakup[0].price.currency,
-    //           value: breakup[0].price.value
-    //         },
-    //         title: breakup?.title
-    //       },
-    //       {
-    //         price: {
-    //           currency: breakup[0].price.currency,
-    //           value: breakup[0].price.value
-    //         },
-    //         title: breakup[0].title
-    //       }
-    //     ],
-    //     price: {
-    //       currency: data.initProv.quote.price.currency,
-    //       value: data.initProv.quote.price.value
-    //     }
-    //   },
-    //   cancellation_terms:[
-    //     {
-    //       cancellation_fee: {
-    //         amount: {
-    //             currency: cancellation?.cancellation_fee?.amount?.currency,
-    //             value: cancellation?.cancellation_fee?.amount?.value,
-    //         },
-    //     } ,
-    //     }
-    //   ],
-    //   type: 'DEFAULT'
-    // }
+    const provider = data.confirmProv.order.provider
+    const items = data.confirmProv.order.items
+    const fulfillments = data.confirmProv.order.fulfillments
+    const billing = data.confirmProv.order.billing
+    const payments = data.confirmProv.order.payments
+    const breakup = data.confirmProv.order.quote.breakup
+    const cancellation = data.confirmProv.order.cancellation_terms
+    const confirmDetails: ConfirmItem = {
+      context: {
+        bppId: data.context.bppId,
+        bppUri: data.context.bppUri
+        // timestamp:data.context.timestamp
+      },
+      order: {
+        id: data.confirmProv.order.id,
+        provider: {
+          id: provider.id,
+          descriptor: {
+            name: provider.descriptor.name,
+            short_desc: provider.descriptor.short_desc,
+            long_desc: provider.descriptor.long_desc
+            // image: provider.descriptor.images.map((image: any) => image?.url),
+          }
+        },
+        items: [
+          {
+            id: items[0].id,
+            descriptor: {
+              name: items[0].descriptor.name
+            },
+            category_ids: [items[0].category_ids],
+            price: {
+              currency: items[0].price.currency,
+              value: items[0].price.value
+            }
+          }
+        ],
+        fulfillments: [
+          {
+            id: fulfillments[0].id,
+            customer: {
+              contact: {
+                email: fulfillments[0].customer.contact.email,
+                phone: fulfillments[0].customer.contact.mobileNumber
+              },
+              person: {
+                name: fulfillments[0].customer.person.name
+              }
+            },
+            stops: [
+              {
+                type: fulfillments[0]?.stops?.type,
+                location: {
+                  gps: fulfillments[0]?.stops?.location?.gps,
+                  address: fulfillments[0]?.stops?.location?.address
+                },
+                contact: {
+                  phone: fulfillments[0]?.stops[0]?.contact?.phone
+                }
+              }
+            ],
+            tracking: fulfillments[0].tracking
+          }
+        ],
+        billing: {
+          name: billing.name,
+          address: billing.address,
+          state: {
+            name: billing.state.name
+          },
+          city: {
+            name: billing.city.name
+          },
+          email: billing.email,
+          phone: billing.phone
+        },
+        payments: [
+          {
+            collected_by: payments[0].collected_by,
+            params: {
+              amount: payments[0].params.amount,
+              currency: payments[0].params.currency,
+              bank_account_number: payments[0].params.bank_account_number,
+              bank_code: payments[0].params.bank_code,
+              bank_account_name: payments[0].params.bank_account_name
+            },
+            status: payments[0].status,
+            type: payments[0].type
+          }
+        ],
+        quote: {
+          breakup: [
+            {
+              price: {
+                currency: breakup[0].price.currency,
+                value: breakup[0].price.value
+              },
+              title: breakup?.title
+            },
+            {
+              price: {
+                currency: breakup[0].price.currency,
+                value: breakup[0].price.value
+              },
+              title: breakup[0].title
+            }
+          ],
+          price: {
+            currency: data.confirmProv?.quote?.price?.currency,
+            value: data.confirmProv?.quote?.price?.value
+          }
+        },
+        cancellation_terms: [
+          {
+            cancellation_fee: {
+              amount: {
+                currency: cancellation[0]?.cancellation_fee?.amount?.currency,
+                value: cancellation[0]?.cancellation_fee?.amount?.value
+              }
+            }
+          }
+        ],
+        type: 'DEFAULT'
+      }
+    }
 
-    // dispatch(setInitItem(allDetails))
+    dispatch(setConfirmItem(confirmDetails))
 
-    router.push(`/orderConfirmation?`)
+    router.push(`/orderConfirmation`)
   }
-  console.log(initItem)
+  if (loading) {
+    return <Loader />
+  }
   return (
     <>
       <Box height={'72vh'} position={'relative'}>

@@ -4,12 +4,14 @@ import { useRouter } from 'next/router'
 import { RetailItem } from '../lib/types/products'
 import React, { useEffect, useState } from 'react'
 import useRequest from '../hooks/useRequest'
-
+import { useLanguage } from '../hooks/useLanguage'
+import Loader from '../components/loader/Loader'
 interface Props {
   product: RetailItem
 }
 const FormDetails: React.FC<Props> = ({ product }) => {
   const apiUrl = process.env.NEXT_PUBLIC_API_URL
+  const { t } = useLanguage()
 
   const router = useRouter()
   const [items, setItems] = useState([])
@@ -43,9 +45,9 @@ const FormDetails: React.FC<Props> = ({ product }) => {
   const fetchDataForSelect2 = () => fetchData(`${apiUrl}/select`, 'POST', select2Payload)
 
   const handleShipping = () => {
-    // if(data){
-    router.push(`/shippingDetails?iId=${itemId}&pId=${providerId}&fId=${fulfillmentId}&bId=${bppId}&bUri=${bppUri}`)
-    // }
+    if (data) {
+      router.push(`/shippingDetails?iId=${itemId}&pId=${providerId}&fId=${fulfillmentId}&bId=${bppId}&bUri=${bppUri}`)
+    }
   }
 
   if (!showComponent) {
@@ -74,6 +76,7 @@ const FormDetails: React.FC<Props> = ({ product }) => {
           Submit form
         </Button>
       </div>
+
       <div className="flex flex-col mt-4 mx-auto my-auto">
         <Button
           background={'rgba(var(--color-primary))'}

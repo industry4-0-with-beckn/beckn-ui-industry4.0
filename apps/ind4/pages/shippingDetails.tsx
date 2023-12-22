@@ -12,6 +12,7 @@ import CheckoutPage from './checkoutPage'
 import Button from '../components/button/Button'
 import { setInitItem } from '../store/init-slice'
 import { initItem } from '../lib/types/products'
+import Loader from '../components/loader/Loader'
 
 const ShippingDetails = () => {
   const { t } = useLanguage()
@@ -63,6 +64,9 @@ const ShippingDetails = () => {
     }
     const fetchDataForInit = () => fetchData(`${apiUrl}/init`, 'POST', initPayload)
     fetchDataForInit()
+  }
+  if (loading) {
+    return <Loader />
   }
   if (data) {
     // dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
@@ -256,6 +260,7 @@ const ShippingDetails = () => {
           </div>
         </div>
       </Box>
+
       <Button
         buttonText={'Proceed'}
         background={'rgba(var(--color-primary))'}
@@ -263,6 +268,7 @@ const ShippingDetails = () => {
         handleOnClick={handleSubmit}
         isDisabled={!formData}
       />
+
       {/* <CheckoutPage initDetails={details}/> */}
     </>
   )
