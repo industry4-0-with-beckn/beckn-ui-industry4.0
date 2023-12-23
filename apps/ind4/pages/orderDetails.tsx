@@ -30,7 +30,7 @@ const OrderDetails = () => {
   const [orderedAt, setOrderedAt] = useState('')
   const [trackurl, setTrackUrl] = useState('')
   const { t } = useLanguage()
-  const requestsCount = 40
+  const requestsCount = 5
   let requestsSent = 0
   const bppId = confirmItem?.context.bppId
   const bppUri = confirmItem?.context.bppUri
@@ -38,6 +38,8 @@ const OrderDetails = () => {
   const pname = confirmItem?.order?.provider?.descriptor?.name
   const pdesc = confirmItem?.order?.provider?.descriptor?.short_desc
   const fulfillment = confirmItem?.order?.fulfillments[0].state?.descriptor
+  const [prevStatus, setPrevStatus] = useState(null)
+  const [updatedStatus, setUpdatedStatus] = useState(null)
 
   const statusPayload = {
     context: {
@@ -46,38 +48,84 @@ const OrderDetails = () => {
     },
     orderId: orderId
   }
-  const fetchDataForStatus = () => {
-    statusRequest.fetchData(`${apiUrl}/status`, 'POST', statusPayload)
-    if (data) {
-      // setOrderId(data.statusProv.order.id)
-      setUpdate(data.statusProv.order.fulfillments.state.descriptor.short_desc)
-      setOrderedAt(data.statusProv.order.fulfillments.state.updated_at)
-    }
-  }
 
   // useEffect(() => {
-  //   if (statusRequest.data) {
-  //     setUpdate(statusRequest.data?.statusProv?.order?.fulfillments?.[0].state?.descriptor?.short_desc)
-
-  //     setStatusResponse(update)
-  //     if (update === 'Completed') {
-  //       setAllOrderDelivered(true)
+  //   const fetchDataForStatus = () => {
+  //     fetchData(`${apiUrl}/status`, 'POST', statusPayload)
+  //     if (data) {
+  //       // setOrderId(data.statusProv.order.id)
+  //       setUpdate(data.statusProv.order.fulfillments[0].state.descriptor.short_desc)
+  //       setOrderedAt(data.statusProv.order.fulfillments[0].state.updated_at)
+  //       console.log("status",update)
   //     }
+  //   }
+
+  //   const intervalId = setInterval(() => {
+  //     if (requestsSent < requestsCount) {
+  //       fetchDataForStatus()
+  //       setStatusResponse([...statusResponse, update])
+  //       if (update === 'Completed') {
+  //         clearInterval(intervalId)
+  //         setAllOrderDelivered(true)
+  //       }
+
+  //       requestsSent++
+  //     } else {
+  //       clearInterval(intervalId)
+  //     }
+  //   }, 6000)
+
+  //   return () => {
+  //     clearInterval(intervalId)
   //   }
   // }, [])
 
-  // console.log("status",statusResponse[0])
-  let prevStatus = ''
+  // useEffect(() => {
+  //   const fetchDataForStatus = () => {
+  //     fetchData(`${apiUrl}/status`, 'POST', statusPayload);
+  //   };
+
+  //   const intervalId = setInterval(() => {
+  //     if (requestsSent < requestsCount) {
+  //       fetchDataForStatus();
+  //       requestsSent++;
+  //     } else {
+  //       clearInterval(intervalId);
+  //     }
+  //   }, 6000);
+
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, []); // Add 'update' to the dependency array if it's used inside the effect
+
   useEffect(() => {
+    const fetchDataForStatus = () => {
+      try {
+        fetchData(`${apiUrl}/status`, 'POST', statusPayload)
+        if (data) {
+          const newUpdate = data.statusProv.order.fulfillments[0].state.descriptor.short_desc
+          setUpdate(newUpdate)
+
+          if (newUpdate === 'Completed') {
+            setAllOrderDelivered(true)
+          }
+        }
+        const newStatus = update
+        if (newStatus !== prevStatus) {
+          setUpdatedStatus(newStatus)
+          setPrevStatus(newStatus)
+        }
+      } catch (error) {
+        // Handle error, e.g., log or display an error message
+        console.error('Error fetching data:', error)
+      }
+    }
+
     const intervalId = setInterval(() => {
       if (requestsSent < requestsCount) {
         fetchDataForStatus()
         setStatusResponse([...statusResponse, update])
-        if (update === 'Completed') {
-          clearInterval(intervalId)
-          setAllOrderDelivered(true)
-        }
-
         requestsSent++
       } else {
         clearInterval(intervalId)
@@ -87,7 +135,27 @@ const OrderDetails = () => {
     return () => {
       clearInterval(intervalId)
     }
-  }, [])
+  }, [statusResponse, update, requestsSent, requestsCount, prevStatus])
+
+  // console.log(statusResponse)
+
+  useEffect(() => {
+    // Your existing useEffect logic here
+    const prev = 'Completed'
+    // Assuming statusResponse is a state variable
+    statusResponse.forEach((status, index) => {
+      if (status === 'In Progress' || status === 'Completed') {
+        if (status !== prev) {
+          // Do something with the updated status, e.g., set it in the state
+          // setStatusResponse(updatedStatus);
+        }
+        setUpdatedStatus(status)
+      }
+    })
+  }, [statusResponse, prevStatus])
+
+  console.log('prevstatus', prevStatus)
+  console.log('updatedstatus', updatedStatus)
 
   const handleTrack = () => {
     fetchData(`${apiUrl}/track`, 'POST', statusPayload)
@@ -134,7 +202,6 @@ const OrderDetails = () => {
           </Flex>
         </Box>
       </DetailsCard>
-
       <Accordion
         accordionHeader={
           <Box>
@@ -160,17 +227,27 @@ const OrderDetails = () => {
                 </Text>
               </Flex>
 
-              {statusResponse.map((status: any, index: number) => (
-                <div>
-                  {status === 'Completed' ? (
-                    <Text key={index} fontSize={'12px'} fontWeight="600" color={'#5EC401'}>
-                      {status}
-                    </Text>
-                  ) : (
-                    'no val'
-                  )}
-                </div>
-              ))}
+              {/* updated code */}
+              {/* {statusResponse.map((status, index) => (
+  status === 'Completed' && (
+    <div key={index}>
+    
+      <p>{'Completed'}</p>
+    </div>
+  )
+))} */}
+
+              {/* updated code */}
+
+              {updatedStatus === 'Completed' ? (
+                <Text fontSize={'12px'} fontWeight="600" color={'#FDC025'}>
+                  Completed
+                </Text>
+              ) : (
+                <Text fontSize={'12px'} fontWeight="600" color={'#5EC401'}>
+                  In Progress
+                </Text>
+              )}
             </Flex>
           </Box>
         }
@@ -189,22 +266,21 @@ const OrderDetails = () => {
               22st Dec 2023, 12:11pm
             </Text>
           </Box>
-          {statusResponse.map((status: any, index: number) => (
-            <div key={index}>
-              {status === 'In Progress' ? (
-                <Box
-                  key={index}
-                  fontSize={'15px'}
-                  color={'rgba(var(--color-primary))'}
-                  pt="10px"
-                  pl="28px"
-                  onClick={handleTrack}
-                >
-                  {t.viewCourse}
-                </Box>
-              ) : null}
-            </div>
-          ))}
+
+          <div>
+            {status === 'In Progress' ? (
+              <Box
+                key={index}
+                fontSize={'15px'}
+                color={'rgba(var(--color-primary))'}
+                pt="10px"
+                pl="28px"
+                onClick={handleTrack}
+              >
+                {t.viewCourse}
+              </Box>
+            ) : null}
+          </div>
         </CardBody>
       </Accordion>
     </Box>
