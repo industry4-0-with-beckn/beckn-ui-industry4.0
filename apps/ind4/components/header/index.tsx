@@ -8,27 +8,6 @@ import { useRouter } from 'next/router'
 
 import { useLanguage } from '../../hooks/useLanguage'
 
-// const cartIconBlackList = [
-//   '/orderConfirmation',
-//   '/orderDetails',
-//   '/trackOrder',
-//   '/feedback',
-//   '/orderHistory',
-//   '/',
-//   '/mobileOtp',
-//   '/cart',
-//   '/checkoutPage',
-//   '/paymentMode',
-//   '/jobSearch',
-//   '/jobDetails',
-//   '/jobApply',
-//   '/createProfile',
-//   '/myScholarship',
-//   '/myLearningOrderHistory',
-//   '/myJobsOrderHistory',
-//   '/applyJobsPrefilled'
-// ]
-
 const backIconList = ['/', '/orderDetails']
 
 const homeIconBlackList = ['/orderHistory', '/', '/homePage', '/mobileOtp', '/createProfile']
@@ -146,34 +125,6 @@ const TopHeader: React.FC<TopHeaderProps> = ({ handleMenuClick }) => {
           <div>
             <Image src="/images/Suppliflow.svg" alt="App logo" />
           </div>
-          {/* <div className="ml-auto flex gap-4">
-            {languageIconWhiteList.includes(router.pathname) && <Settings />}
-
-            {menuIconWhiteList.includes(router.pathname) && (
-              <Image
-                onClick={() => setMenuModalOpen(true)}
-                className="block"
-                src="/images/3-dots.svg"
-                alt="menu icon"
-              />
-            )}
-
-            {!homeIconBlackList.includes(router.pathname) && (
-              <Image
-                w={'88%'}
-                onClick={() => {
-                  // localStorage.clear();
-                  // router.push("/");
-                  let user = localStorage.getItem('userPhone') as string
-                  localStorage.clear()
-                  localStorage.setItem('userPhone', user)
-                  router.push('/homePage')
-                }}
-                src="/images/Home_icon.svg"
-                alt="home Icon"
-              />
-            )}
-          </div> */}
         </div>
       </div>
 

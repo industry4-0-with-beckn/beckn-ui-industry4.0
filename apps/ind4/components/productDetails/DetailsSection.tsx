@@ -1,19 +1,68 @@
 import { Box, Flex, Image, Text, Button } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import StarRatingComponent from 'react-star-rating-component'
 import { useLanguage } from '../../hooks/useLanguage'
+import useRequest from '../../hooks/useRequest'
+import Router from 'next/router'
+import { responseDataActions } from '../../store/responseData-slice'
+import Loader from '../../components/loader/Loader'
+
 import { RetailItem } from '../../lib/types/products'
-import CallToAction from './CallToAction'
-import greenVegIcon from '../../public/images/greenVeg.svg'
-import redNonVegIcon from '../../public/images/redNonVeg.svg'
 
 interface Props {
   product: RetailItem
+  // onSelectData: (val: any) => void
 }
 const DetailsSection: React.FC<Props> = ({ product }) => {
   const { t } = useLanguage()
+  const [url, setUrl] = useState()
   const [showComponent, setShowComponent] = useState(false)
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL
+  const { data, loading, error, fetchData } = useRequest()
+  const dispatch = useDispatch()
 
+  const id = product.id
+  const providerItemid = product.items[0].id
+  // "66b7b9bad166-4a3f-ada6-ca063dc9d321"
+  const providerFulfillmentid = 'f1'
+  const bppId = product.context.bppId
+  const bppUri = product.context.bppUri //"https://35f2-194-95-60-104.ngrok-free.app"
+  const providerTagname = 'select-1'
+
+  const selectPayload = {
+    context: {
+      bppId: bppId,
+      bppUri: bppUri
+    },
+    providerId: id,
+    itemId: providerItemid,
+    fulfillmentId: providerFulfillmentid,
+    tagName: providerTagname
+  }
+
+  const fetchDataForSelect = () => fetchData(`${apiUrl}/select`, 'POST', selectPayload)
+
+  useEffect(() => {
+    if (data) {
+      // dispatch(responseDataActions.addTransactionId(data.context.transaction_id))
+
+      const selectedUrl = data.formUrl
+      const providerId = data.selectProvider.provider.id
+      const itemId = data.selectProvider.items[0].id
+      const fulfillment = data.selectProvider.fulfillments[0].id
+
+      localStorage.setItem('selectUrl', JSON.stringify(selectedUrl))
+      Router.push(
+        `/formDetails?url=${selectedUrl}&pId=${providerId}&iId=${itemId}&fId=${fulfillment}&bppId=${bppId}&bppUri=${bppUri}`
+      )
+      localStorage.setItem('selectUrl', JSON.stringify(selectedUrl))
+    }
+
+    // })
+  }, [data])
+
+  //----
   useEffect(() => {
     localStorage.removeItem('optionTags')
     localStorage.setItem('optionTags', JSON.stringify({ name: product.descriptor.name }))
@@ -48,14 +97,6 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
         <Text mt={'10px'} mb={'10px'} fontSize={'14px'}>
           {product.descriptor.short_desc}
         </Text>
-
-        {/* {product.tags.foodType ? (
-          product.tags.foodType === 'veg' ? (
-            <Image pt={'4px'} src={greenVegIcon} alt="greenVegIcon" />
-          ) : (
-            <Image pt={'4px'} src={redNonVegIcon} alt="redNonVegIcon" />
-          )
-        ) : null} */}
       </Flex>
       <hr className="mt-1 hidden md:block" />
       <div className="flex items-start flex-wrap relative ">
@@ -80,8 +121,14 @@ const DetailsSection: React.FC<Props> = ({ product }) => {
           ></div>
         </div>
       </div>
-      <div className="flex flex-col">
-        <Button background={'rgba(var(--color-primary))'} color={'rgba(var(--text-color))'} isDisabled={false}>
+      <div className="flex flex-col pt-4">
+        <Button
+          background={'rgba(var(--color-primary))'}
+          color={'rgba(var(--text-color))'}
+          isDisabled={false}
+          onClick={fetchDataForSelect}
+          // onChange={urlNew}
+        >
           Book now
         </Button>
       </div>

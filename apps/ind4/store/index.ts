@@ -12,6 +12,8 @@ import settingBoxReducer from './settingBox-slice'
 import scholarshipCartReducer from './scholarshipCart-slice'
 import favoriteReducer from './favorite-slice'
 import responseDataReducer from './responseData-slice'
+import initItemReducer from './init-slice'
+import confirmItemReducer from './confirm-slice'
 
 const store = configureStore({
   reducer: {
@@ -30,7 +32,9 @@ const store = configureStore({
     quoteResponse: responseDataReducer,
     customerDetails: responseDataReducer,
     initResponse: responseDataReducer,
-    scholarshipCart: scholarshipCartReducer
+    scholarshipCart: scholarshipCartReducer,
+    initItem: initItemReducer,
+    confirmItem: confirmItemReducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
