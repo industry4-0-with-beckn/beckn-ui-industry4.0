@@ -49,56 +49,6 @@ const OrderDetails = () => {
     orderId: orderId
   }
 
-  // useEffect(() => {
-  //   const fetchDataForStatus = () => {
-  //     fetchData(`${apiUrl}/status`, 'POST', statusPayload)
-  //     if (data) {
-  //       // setOrderId(data.statusProv.order.id)
-  //       setUpdate(data.statusProv.order.fulfillments[0].state.descriptor.short_desc)
-  //       setOrderedAt(data.statusProv.order.fulfillments[0].state.updated_at)
-  //       console.log("status",update)
-  //     }
-  //   }
-
-  //   const intervalId = setInterval(() => {
-  //     if (requestsSent < requestsCount) {
-  //       fetchDataForStatus()
-  //       setStatusResponse([...statusResponse, update])
-  //       if (update === 'Completed') {
-  //         clearInterval(intervalId)
-  //         setAllOrderDelivered(true)
-  //       }
-
-  //       requestsSent++
-  //     } else {
-  //       clearInterval(intervalId)
-  //     }
-  //   }, 6000)
-
-  //   return () => {
-  //     clearInterval(intervalId)
-  //   }
-  // }, [])
-
-  // useEffect(() => {
-  //   const fetchDataForStatus = () => {
-  //     fetchData(`${apiUrl}/status`, 'POST', statusPayload);
-  //   };
-
-  //   const intervalId = setInterval(() => {
-  //     if (requestsSent < requestsCount) {
-  //       fetchDataForStatus();
-  //       requestsSent++;
-  //     } else {
-  //       clearInterval(intervalId);
-  //     }
-  //   }, 6000);
-
-  //   return () => {
-  //     clearInterval(intervalId);
-  //   };
-  // }, []); // Add 'update' to the dependency array if it's used inside the effect
-
   useEffect(() => {
     const fetchDataForStatus = () => {
       try {
@@ -154,13 +104,13 @@ const OrderDetails = () => {
     })
   }, [statusResponse, prevStatus])
 
-  console.log('prevstatus', prevStatus)
-  console.log('updatedstatus', updatedStatus)
-
   const handleTrack = () => {
     fetchData(`${apiUrl}/track`, 'POST', statusPayload)
     if (data) {
       const url = data.trackUrl
+      window.open(url)
+    } else {
+      const url = 'https://2f62-194-95-60-104.ngrok-free.app/track'
       window.open(url)
     }
   }
@@ -178,9 +128,8 @@ const OrderDetails = () => {
               </Text>
             </Flex>
             <Flex alignItems={'center'} fontSize={'15px'} pl={'20px'}>
-              <Text>How did we do?</Text>
-              <Text onClick={() => router.push('/feedback')} pl={'10px'} color={'rgba(var(--color-primary))'}>
-                Rate Us
+              <Text onClick={() => router.push('/homePage')} pl={'10px'} color={'rgba(var(--color-primary))'}>
+                Browse more services ?
               </Text>
             </Flex>
           </CardBody>
@@ -227,24 +176,12 @@ const OrderDetails = () => {
                 </Text>
               </Flex>
 
-              {/* updated code */}
-              {/* {statusResponse.map((status, index) => (
-  status === 'Completed' && (
-    <div key={index}>
-    
-      <p>{'Completed'}</p>
-    </div>
-  )
-))} */}
-
-              {/* updated code */}
-
               {updatedStatus === 'Completed' ? (
-                <Text fontSize={'12px'} fontWeight="600" color={'#FDC025'}>
+                <Text fontSize={'12px'} fontWeight="600" color={'#5EC401'}>
                   Completed
                 </Text>
               ) : (
-                <Text fontSize={'12px'} fontWeight="600" color={'#5EC401'}>
+                <Text fontSize={'12px'} fontWeight="600" color={'#FDC025'}>
                   In Progress
                 </Text>
               )}
@@ -259,7 +196,7 @@ const OrderDetails = () => {
             <Flex alignItems={'center'}>
               <Image src="/images/done.svg" alt="" />
               <Text pl={'8px'} fontSize="15px" fontWeight={'600'} onClick={handleTrack}>
-                Track
+                Click here to Track
               </Text>
             </Flex>
             <Text pl="28px" fontSize={'12px'}>
@@ -267,7 +204,7 @@ const OrderDetails = () => {
             </Text>
           </Box>
 
-          <div>
+          {/* <div>
             {status === 'In Progress' ? (
               <Box
                 key={index}
@@ -280,7 +217,7 @@ const OrderDetails = () => {
                 {t.viewCourse}
               </Box>
             ) : null}
-          </div>
+          </div> */}
         </CardBody>
       </Accordion>
     </Box>
